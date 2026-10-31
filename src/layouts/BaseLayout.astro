@@ -1,0 +1,24 @@
+---
+// Wspólny szkielet stron. Wygląd odtwarzamy z Framera, gdy przyjdą materiały od Roberta.
+interface Props {
+	title: string;
+	description: string;
+}
+const { title, description } = Astro.props;
+const podglad = import.meta.env.PUBLIC_PODGLAD === '1';
+const kanoniczny = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={kanoniczny} />
+		{podglad && <meta name="robots" content="noindex, nofollow" />}
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

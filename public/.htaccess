@@ -1,0 +1,31 @@
+ErrorDocument 404 /404.html
+RewriteEngine On
+
+# Adres kanoniczny jak na Framerze: https i www.
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.wemont.pl%{REQUEST_URI} [R=301,L]
+
+# Bez slasha na końcu: /oferta/ -> /oferta (Framer robił to samo, kodem 308).
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+# Bez .html w adresie: /oferta.html -> /oferta.
+RewriteCond %{THE_REQUEST} \s/([^.\s]+)\.html[\s?]
+RewriteRule ^ /%1 [R=301,L]
+
+# /oferta podaje plik oferta.html.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^.]+)$ /$1.html [L]
+
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault "access plus 0 seconds"
+	ExpiresByType image/avif "access plus 1 year"
+	ExpiresByType image/webp "access plus 1 year"
+	ExpiresByType image/jpeg "access plus 1 year"
+	ExpiresByType image/png "access plus 1 year"
+	ExpiresByType font/woff2 "access plus 1 year"
+	ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
