@@ -86,7 +86,7 @@ cel = next(e for e in d if e['id'] == CEL_ID)
 cp = Polygon([P(g['lon'], g['lat']) for g in cel['geometry']])
 x, y = cp.centroid.x, cp.centroid.y
 r = 40; h = r * 2.6
-def lab(sw): return f'font-family="Montserrat, Arial, sans-serif" paint-order="stroke" stroke="#ffffff" stroke-width="{sw}" stroke-linejoin="round"'
+def lab(sw): return f'font-family="&apos;Montserrat Variable&apos;, Montserrat, Arial, sans-serif" paint-order="stroke" stroke="#ffffff" stroke-width="{sw}" stroke-linejoin="round"'
 NAZWA, ADRES = 'WEMONT', 'ul. Sienkiewicza 19'
 szer = max(szer_tekstu(NAZWA, FS_NAZWA), szer_tekstu(ADRES, FS_ADRES))
 margines = 24
@@ -114,7 +114,7 @@ for i, (name, part) in enumerate(nazwy.items()):
     def odstep(c): return min(linia.interpolate(c + dd).distance(zajete) for dd in (-pol, 0, pol))
     srodek = max(kandydaci, key=odstep)
     defs.append(f'<path id="ul{i}" d="{path_d(cs)}"/>')
-    teksty.append(f'<text font-family="Montserrat, Arial, sans-serif" font-size="{FS_ULICA}" font-weight="600" fill="{C["ulica"]}" dy="10" paint-order="stroke" stroke="#ffffff" stroke-width="9" stroke-linejoin="round"><textPath href="#ul{i}" startOffset="{srodek:.0f}" text-anchor="middle">{name}</textPath></text>')
+    teksty.append(f'<text font-family="&apos;Montserrat Variable&apos;, Montserrat, Arial, sans-serif" font-size="{FS_ULICA}" font-weight="600" fill="{C["ulica"]}" dy="10" paint-order="stroke" stroke="#ffffff" stroke-width="9" stroke-linejoin="round"><textPath href="#ul{i}" startOffset="{srodek:.0f}" text-anchor="middle">{name}</textPath></text>')
 out.append('<defs>' + ''.join(defs) + '</defs>')
 
 out.append(f'<path d="{poly_d(cp)}" fill="{C["cel"]}" stroke="#0d3529" stroke-width="2"/>')
