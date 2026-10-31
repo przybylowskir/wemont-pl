@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Slider from '../components/Slider.astro';
+import mirekBezTla from '../assets/zdjecia/zespol/mirek-bez-tla.png';
+import mirek from '../assets/zdjecia/zespol/mirek.jpg';
+import wojtek from '../assets/zdjecia/zespol/wojtek.jpg';
+
+// Zdjęcia salonu: src/assets/zdjecia/onas (ZRODLA.txt). Teksty z Framera (31.10.2026),
+// poprawione: „na co dzień” (było „na codzień”) i podwójna spacja w opisie Mirka.
+const salon = Object.values(
+	import.meta.glob<{ default: ImageMetadata }>('../assets/zdjecia/onas/*.jpg', { eager: true }),
+).map((m) => m.default);
+
+const zespol = [
+	{
+		zdjecie: mirek,
+		imie: 'Mirek Zieliński',
+		rola: 'Założyciel marki WEMONT',
+		opis: 'Bramy, ogrodzenia, drzwi nie mają przed nim żadnych tajemnic. Bogate doświadczenie w branży pozwala mu zawsze perfekcyjnie dobrać produkt do potrzeb i oczekiwań klienta. Skupiony na budowaniu długotrwałych relacji opartych na profesjonalizmie i zaufaniu. W wolnych chwilach podróżuje lub jest w pracy ;-).',
+	},
+	{
+		zdjecie: wojtek,
+		imie: 'Wojtek',
+		rola: 'Specjalista do spraw sprzedaży',
+		opis: 'Okna, bramy i drzwi nie mają przed nim żadnych tajemnic. Zawsze oferuje fachowe doradztwo oraz pełne wsparcie na każdym etapie zakupu. Zna najnowsze rozwiązania, nowe technologie i nie zawaha się ich użyć ;-). Ekspert w budowaniu długotrwałych relacji opartych na wzajemnym zaufaniu. W wolnym czasie pasjonat wędkarstwa.',
+	},
+];
+---
+<BaseLayout
+	title="O nas - Wemont, Salon Partnerski Wiśniowski w Kołobrzegu"
+	description="Wemont specjalizuje się w montażu produktów marki Wiśniowski. Poznaj nasz salon przy ul. Sienkiewicza 19 w Kołobrzegu i zespół: Mirka i Wojtka."
+>
+	<section class="kontener naglowek-strony">
+		<Slider zdjecia={salon} alt="Salon Wemont w Kołobrzegu" etykieta="Salon Wemont">
+			<h1>Specjalizujemy się w montażu produktów marki Wiśniowski</h1>
+		</Slider>
+		<ul class="liczby">
+			<li><strong>99%</strong> Zadowolonych klientów</li>
+			<li><strong>100%</strong> Profesjonalizmu</li>
+			<li><strong>10 lat</strong> Doświadczenia</li>
+		</ul>
+	</section>
+
+	<section class="kontener sekcja">
+		<div class="misja">
+			<div>
+				<h2>Jaka jest misja marki Wemont?</h2>
+				<p>Naszą misją jest dostarczenie klientom usług, które nie tylko spełniają ich oczekiwania, ale również przewyższają je pod względem jakości i designu. Wyróżniamy się na rynku dzięki innowacyjnemu podejściu do montażu, dbając o każdy detal oraz dopasowując rozwiązania do indywidualnych potrzeb klienta.</p>
+				<p>Stawiamy na zaufanie, bezpieczeństwo i satysfakcję naszych klientów. Dzięki rzetelności, profesjonalizmowi oraz wykorzystaniu produktów renomowanej marki Wiśniowski, zapewniamy bezawaryjne działanie zamontowanych produktów przez wiele lat.</p>
+				<p>Nasze usługi realizujemy przez doświadczonych fachowców, co gwarantuje maksymalne bezpieczeństwo i ochronę. Podchodzimy indywidualnie do każdego klienta, oferujemy szeroki wybór produktów oraz fachowe doradztwo, aby spełnić wszystkie oczekiwania i zapewnić pełną satysfakcję z wyboru oferowanych produktów.</p>
+			</div>
+			<Image src={mirekBezTla} alt="" widths={[300, 600]} sizes="300px" class="misja-zdjecie" />
+		</div>
+	</section>
+
+	<section class="zespol">
+		<div class="kontener sekcja">
+			<h2>Zespół marki Wemont</h2>
+			<p class="podtytul">Mirek i Wojtek na co dzień zajmują się obsługą naszych klientów.</p>
+			<div class="karty">
+				{zespol.map((o) => (
+					<article class="karta">
+						<Image src={o.zdjecie} alt={o.imie} width={112} height={112} class="awatar" />
+						<h3>{o.imie}</h3>
+						<p class="rola">{o.rola}</p>
+						<p>{o.opis}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.naglowek-strony { padding-top: 0.5rem; }
+	.naglowek-strony :global(.slider) { box-shadow: 0 20px 40px rgb(0 0 0 / 0.12); }
+	h1 {
+		position: absolute; inset: auto 1rem 12%; text-align: center; pointer-events: none;
+		color: #fff; font-size: clamp(1.4rem, 4vw, 2.1rem); font-weight: 700;
+		text-shadow: 0 2px 12px rgb(0 0 0 / 0.55);
+	}
+	.liczby {
+		list-style: none; padding: 0; margin: 3rem 0 0;
+		display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; color: var(--szary-jasny);
+	}
+	.liczby li + li { border-left: 1px solid var(--ramka); }
+	.liczby strong { display: block; color: var(--tekst-slaby); font-family: var(--font-naglowki); font-weight: 500; }
+
+	.misja {
+		display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end;
+		padding: 2rem 0 0 2rem; box-shadow: 0 4px 30px rgb(0 0 0 / 0.1); overflow: hidden;
+	}
+	.misja > div { padding-bottom: 2rem; }
+	.misja h2 { color: #1d1d1b; font-size: 1.15rem; font-weight: 600; margin-bottom: 1.25rem; }
+	.misja p { font-size: 0.95rem; line-height: 1.9; }
+	.misja :global(.misja-zdjecie) { width: 220px; filter: grayscale(1); align-self: end; }
+
+	.zespol { background: #fafafa; }
+	.zespol h2 { text-align: center; color: #1d1d1b; font-size: clamp(1.5rem, 3vw, 1.75rem); font-weight: 600; }
+	.podtytul { text-align: center; color: var(--tekst-slaby); max-width: 22rem; margin: 1rem auto 3rem; }
+	.karty { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+	.karta { background: #fff; padding: 1.5rem; font-size: 0.95rem; color: var(--tekst-slaby); }
+	.karta :global(.awatar) { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; }
+	.karta h3 { color: #1d1d1b; font-size: 1rem; font-weight: 600; }
+	.rola { font-size: 0.85rem; margin: 0.25rem 0 1rem; }
+
+	@media (max-width: 640px) {
+		.liczby { grid-template-columns: 1fr; gap: 1.25rem; }
+		.liczby li + li { border: 0; }
+		.misja { grid-template-columns: 1fr; padding: 1.5rem 1.5rem 0; }
+		.misja :global(.misja-zdjecie) { width: 180px; justify-self: end; }
+	}
+</style>

@@ -1,0 +1,26 @@
+---
+// Podstrony oferty (/d-bramy, /p-okna, ...). Treść to karty Wiśniowskiego wstawiane skryptem nulead.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { oferta, type Pozycja } from '../data/oferta';
+
+export function getStaticPaths() {
+	return oferta.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+
+const { p } = Astro.props as { p: Pozycja };
+const dla = p.grupa === 'dom' ? 'dla domu' : 'dla firmy';
+---
+<BaseLayout
+	title={`${p.nazwa} ${dla} - Wemont, Kołobrzeg`}
+	description={`${p.nazwa} Wiśniowski ${dla} - sprzedaż i montaż. Wemont, Salon Partnerski Wiśniowski w Kołobrzegu.`}
+>
+	<h1 class="sr-only">{p.nazwa} Wiśniowski {dla}</h1>
+	<div class="kontener karty">
+		<script is:inline type="text/javascript" src={`https://api.nulead.pl/layer.js?guid=${p.guid}`}></script>
+	</div>
+</BaseLayout>
+
+<style>
+	/* Karty nulead są szersze niż treść strony - jak na Framerze. */
+	.karty { width: min(100% - 2rem, var(--szerokosc-pas)); padding-block: 2rem 4rem; min-height: 60vh; }
+</style>

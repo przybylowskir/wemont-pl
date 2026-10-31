@@ -1,0 +1,9 @@
+d-bramy.jpg      <- slider/14.jpg
+d-ogrodzenia.jpg <- slider/05.jpg
+d-drzwi.webp     <- DD_Drzwi/w-221013e-2863_1920x1280.webp
+d-okna.webp      <- DD_Okna/w-221013f-2916_1920x1280.webp
+p-bramy.jpg      <- slider/08.jpg
+p-ogrodzenia.jpg <- Oferta/ogrodzenia_w-220901a-005
+p-drzwi.jpg      <- Oferta/drzwi_w_220510-a8235
+p-okna.jpg       <- Oferta/okna_heron-marina-18_drzwi HS alu
+Dobór jak na kaflach /oferta na Framerze (31.10.2026).

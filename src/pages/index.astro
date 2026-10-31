@@ -1,7 +1,137 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Slider from '../components/Slider.astro';
+import Kafel from '../components/Kafel.astro';
+import { opinie, faq } from '../data/opinie';
+import dlaDomu from '../assets/zdjecia/dla-domu.jpg';
+import dlaFirmy from '../assets/zdjecia/dla-firmy.jpg';
+
+// Zdjęcia slidera: src/assets/zdjecia/slider, kolejność wg nazw plików (źródła w ZRODLA.txt).
+const slajdy = Object.values(
+	import.meta.glob<{ default: ImageMetadata }>('../assets/zdjecia/slider/*.jpg', { eager: true }),
+).map((m) => m.default);
+
+// Opis z Framera (31.10.2026), bez zmian.
+const opis =
+	'WEMONT to marka specjalizująca się w montażu bram Wiśniowski, która stawia na najwyższą jakość, estetykę i nowoczesne rozwiązania.';
 ---
-<BaseLayout title="Wemont" description="TODO: opis z obecnej strony wemont.pl">
-	<h1>Wemont</h1>
-	<p>TODO: strona główna odtworzona z Framera.</p>
+<BaseLayout title="Wemont - Salon Partnerski Wiśniowski w Kołobrzegu" description={opis}>
+	<h1 class="sr-only">Wemont - Salon Partnerski Wiśniowski w Kołobrzegu</h1>
+
+	<section class="slider-ramka">
+		<div class="kontener">
+			<Slider zdjecia={slajdy} alt="Brama Wiśniowski" etykieta="Realizacje Wiśniowski" />
+		</div>
+	</section>
+
+	<section class="sekcja kontener">
+		<h2 class="tytul">Nasze rozwiązania</h2>
+		<p class="wstep">W naszej ofercie znajdziesz bramy, ogrodzenia, drzwi i okna dla domu i dla firmy.</p>
+		<div class="kafle">
+			<Kafel href="/oferta" zdjecie={dlaDomu} podpis="Dla domu" />
+			<Kafel href="/oferta#dlafirmy" zdjecie={dlaFirmy} podpis="Dla firmy" />
+		</div>
+		<ul class="liczby">
+			<li><strong>35 bram</strong> montujemy średnio w miesiącu</li>
+			<li><strong>4</strong> profesjonalne ekipy montażowe</li>
+			<li><strong>24 godziny</strong> średni czas realizacji usług serwisowych</li>
+		</ul>
+	</section>
+
+	<section class="opinie">
+		<div class="kontener">
+			<p class="oceny"><span aria-hidden="true">✨</span> <strong>Oceny 5/5</strong> od naszych zadowolonych klientów</p>
+			<div class="opinie-ramka" data-opinie>
+			<ul class="opinie-lista" data-slajdy tabindex="0">
+				{opinie.map((o) => (
+					<li>
+						<blockquote>{o.tekst}</blockquote>
+						<p class="autor"><strong>{o.autor}</strong><br />{o.podpis}</p>
+					</li>
+				))}
+			</ul>
+			<button type="button" class="strzalka lewa" data-wstecz aria-label="Poprzednia opinia">‹</button>
+			<button type="button" class="strzalka prawa" data-dalej aria-label="Następna opinia">›</button>
+			</div>
+		</div>
+	</section>
+
+	<section class="sekcja kontener faq" id="faq">
+		<h2 class="faq-tytul">Najczęstsze pytania <span>naszych klientów.</span></h2>
+		<div class="faq-lista">
+			{faq.map((f) => (
+				<details>
+					<summary>{f.pytanie}</summary>
+					<p>{f.odpowiedz}</p>
+				</details>
+			))}
+		</div>
+	</section>
 </BaseLayout>
+
+<script>
+	// Opinie przewijane strzałkami, jak slider zdjęć.
+	for (const s of document.querySelectorAll<HTMLElement>('[data-opinie]')) {
+		const tor = s.querySelector<HTMLElement>('[data-slajdy]')!;
+		const krok = (k: number) => tor.scrollBy({ left: k * tor.clientWidth, behavior: 'smooth' });
+		s.querySelector('[data-wstecz]')!.addEventListener('click', () => krok(tor.scrollLeft < 10 ? 99 : -1));
+		s.querySelector('[data-dalej]')!.addEventListener('click', () =>
+			krok(tor.scrollLeft + tor.clientWidth >= tor.scrollWidth - 10 ? -99 : 1),
+		);
+	}
+</script>
+
+<style>
+	.slider-ramka { padding-top: 0.5rem; }
+	.opinie-ramka { position: relative; }
+	.strzalka {
+		position: absolute; top: 40%; translate: 0 -50%;
+		width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 0;
+		background: rgb(255 255 255 / 0.12); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer;
+	}
+	.lewa { left: 0; }
+	.prawa { right: 0; }
+
+	.wstep { max-width: 26rem; margin: 1.5rem 0 3rem; }
+	.kafle { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 2rem; }
+	.liczby {
+		list-style: none; padding: 0; margin: 4rem 0 0;
+		display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; color: var(--tekst-slaby);
+	}
+	.liczby li { padding-inline: 1rem; }
+	.liczby li + li { border-left: 1px solid var(--ramka); }
+	.liczby strong { display: block; color: #232423; font-family: var(--font-naglowki); font-weight: 500; }
+
+	.opinie { background: var(--tlo-ciemne); color: #e4e4e7; padding-block: 4rem; width: min(100%, var(--szerokosc-pas)); margin-inline: auto; }
+	.oceny { color: #a1a1aa; font-family: var(--font-naglowki); font-size: 0.9rem; }
+	.oceny strong { color: #fff; }
+	.opinie-lista {
+		list-style: none; padding: 0; margin: 2rem 0 0;
+		display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+	}
+	.opinie-lista::-webkit-scrollbar { display: none; }
+	.opinie-lista li { flex: 0 0 100%; scroll-snap-align: start; padding-inline: 3.5rem; }
+	blockquote { margin: 0; font-size: 1.05rem; line-height: 1.9; }
+	.autor { margin-top: 1.5rem; font-family: var(--font-naglowki); font-size: 0.85rem; color: #d4d4d8; }
+	.autor strong { color: #fff; font-size: 1rem; }
+
+	.faq-tytul { text-align: center; color: #1d1d1b; font-size: clamp(1.5rem, 3vw, 1.75rem); font-weight: 600; }
+	.faq-tytul span { display: block; color: var(--szary-jasny); }
+	.faq-lista { max-width: 50rem; margin: 3rem auto 0; display: grid; gap: 0.35rem; }
+	details { background: #fafafa; border: 1px solid #f0f0f0; border-radius: 0.6rem; }
+	summary {
+		cursor: pointer; list-style: none; padding: 1rem 1.4rem;
+		display: flex; justify-content: space-between; gap: 1rem;
+		font-family: var(--font-naglowki); font-weight: 500; color: #27272a;
+	}
+	summary::-webkit-details-marker { display: none; }
+	summary::after { content: '+'; color: var(--szary-jasny); font-size: 1.3rem; line-height: 1; }
+	details[open] summary::after { content: '−'; }
+	details p { margin: 0; padding: 0 1.4rem 1.2rem; }
+
+	@media (max-width: 640px) {
+		.liczby { grid-template-columns: 1fr; gap: 1.5rem; }
+		.liczby li + li { border: 0; }
+		.opinie-lista li { padding-inline: 2.75rem; }
+	}
+</style>

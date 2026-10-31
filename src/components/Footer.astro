@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+import { firma } from '../data/firma';
+import logo from '../assets/logo/logo-poziom-zlamana-biel.svg';
+// Logo Wiśniowski z księgi znaku, bez zmian (umowa partnerska §6 ust. 5: znaków nie wolno modyfikować).
+import wisniowski from '../assets/logo/wisniowski-poziom-inverse.png';
+---
+<footer class="stopka">
+	<div class="kontener">
+		<div class="logo-duze" aria-hidden="true"><Image src={logo} alt="" width={720} /></div>
+		<div class="kolumny">
+			<div>
+				<Image src={logo} alt="Wemont" width={110} />
+				<p class="partner">Salon Partnerski<br /><Image src={wisniowski} alt="Wiśniowski" width={150} /></p>
+				<p><a href="/politykaprywatnosci">Polityka prywatności</a></p>
+				<p class="slaby">© 2024 - Wemont</p>
+			</div>
+			<nav aria-label="Stopka">
+				<a href="/">Start</a>
+				<a href="/onas">O nas</a>
+				<a href="/oferta">Oferta</a>
+				<a href="/#faq">FAQ</a>
+			</nav>
+			<div>
+				<p>Kiedy pracujemy</p>
+				{firma.godziny.map((g) => <p class="slaby">{g}</p>)}
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.stopka { width: min(100%, var(--szerokosc-pas)); margin-inline: auto; background: var(--tlo-ciemne); color: #fafafa; padding-block: 2rem 3rem; font-size: 0.9rem; }
+	.stopka a { text-decoration: none; }
+	.logo-duze { opacity: 0.55; filter: blur(1px); max-width: 720px; -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent); margin: 0 auto 4rem; }
+	.kolumny { display: grid; gap: 2rem; grid-template-columns: repeat(3, 1fr); }
+	.kolumny > * { border-left: 1px solid #52525b; padding-left: 1.75rem; }
+	.kolumny > :first-child { border: 0; padding: 0; }
+	nav { display: flex; flex-direction: column; gap: 0.6rem; }
+	p { margin: 0 0 0.6rem; }
+	.slaby { color: #a1a1aa; }
+	.partner { margin: 1.25rem 0; font-size: 0.75rem; color: #a1a1aa; }
+	.partner :global(img) { margin-top: 0.4rem; }
+	@media (max-width: 640px) {
+		.kolumny { grid-template-columns: 1fr; }
+		.kolumny > * { border: 0; padding: 0; }
+		.logo-duze { margin-bottom: 2.5rem; }
+	}
+</style>

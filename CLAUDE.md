@@ -49,6 +49,26 @@ z bramykolobrzeg.pl — tam są inne (Jasna 15, 9:00-16:00).
 
 **Bez Umami** — na razie odpuszczone (Robert, 31.10.2026).
 
+## Zrobione strony (31.10.2026)
+
+Wszystkie 13 stron z sitemapy Framera bez resztek szablonu + 404: `/`, `/oferta`,
+`/onas`, `/kontakt`, `/politykaprywatnosci`, 8 podstron oferty (`src/pages/[slug].astro`,
+dane w `src/data/oferta.ts`). Zdjęcia w `src/assets/zdjecia/*/ZRODLA.txt` (skąd który plik).
+
+**Logo Wiśniowski — bez żadnych zmian.** Umowa partnerska §6 ust. 5 zabrania
+modyfikowania znaków Wiśniowskiego: żadnych filtrów CSS, przycinania, przekolorowania.
+Pliki z `~/Aegis_files/wemont-pl/Wisniowski ksiega znaku/`.
+
+**Błędy z Framera poprawione przy przenosinach:**
+- link e-mail w górnym pasku prowadził do `hello@orion.com` (szablon) → biuro@wemont.pl;
+- każda strona miała tytuł „Wemont” i ten sam opis → osobne tytuły i opisy;
+- O nas: „na codzień” → „na co dzień”, podwójna spacja; FAQ: „express - wówczas”;
+- polityka: literówki, brakujące spacje, „Sp. z o.o.”, urwany nawias, e-mail bez adresu;
+  usunięte cookies Google Analytics (strony bez analityki), dopisany hosting i skrypty zewnętrzne;
+- REGON: 52873231000000 (14 cyfr, jak w polityce).
+
+Opinie klientów zostają dosłownie, z literówkami autorów.
+
 ## Wgrywanie
 
 `scripts/wdroz.sh test|produkcja [--wyslij]` — jak w wemont-strona, cel

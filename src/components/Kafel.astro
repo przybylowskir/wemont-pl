@@ -1,0 +1,27 @@
+---
+// Kafel ze zdjęciem i podpisem na środku - strona główna i Oferta.
+import { Image } from 'astro:assets';
+
+interface Props {
+	href: string;
+	zdjecie: ImageMetadata;
+	podpis: string;
+}
+const { href, zdjecie, podpis } = Astro.props;
+---
+<a href={href} class="kafel">
+	<Image src={zdjecie} alt="" widths={[400, 700]} sizes="(max-width: 640px) 100vw, 400px" />
+	<span>{podpis}</span>
+</a>
+
+<style>
+	.kafel { position: relative; display: block; overflow: hidden; }
+	.kafel :global(img) { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: scale 0.4s; }
+	.kafel:hover :global(img) { scale: 1.04; }
+	span {
+		position: absolute; inset: 50% auto auto 50%; translate: -50% -50%;
+		padding: 0.2rem 1.2rem; border-radius: 1rem; background: rgb(255 255 255 / 0.3); backdrop-filter: blur(4px);
+		color: #fff; font-family: var(--font-naglowki); font-weight: 600; font-size: clamp(1.3rem, 3vw, 1.8rem);
+		text-align: center; text-shadow: 0 1px 6px rgb(0 0 0 / 0.35); width: max-content; max-width: 85%;
+	}
+</style>

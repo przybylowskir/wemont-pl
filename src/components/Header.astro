@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import { firma } from '../data/firma';
+import logo from '../assets/logo/logo-poziom.svg';
+import salon from '../assets/logo/salon-wisniowski.png';
+
+// Link do Map Google z obecnego paska (Framer, 31.10.2026).
+const mapy = 'https://maps.app.goo.gl/JbgDnKqMGwJug7CT6';
+---
+<header class="naglowek">
+	<div class="pasek">
+		<div class="kontener pasek-wnetrze">
+			<a href="/" class="pasek-logo"><Image src={logo} alt="Wemont" height={14} /></a>
+			<a href={mapy} class="pasek-adres">ul. H. Sienkiewicza 19, Kołobrzeg</a>
+			<a href={`mailto:${firma.emailBiuro}`} class="pasek-email">{firma.emailBiuro}</a>
+		</div>
+	</div>
+	<div class="kontener menu">
+		<a href="/" class="salon">
+			<Image src={salon} alt="" width={30} height={30} />
+			<span>{firma.podtytul}</span>
+		</a>
+		<nav aria-label="Menu główne">
+			<a href="/onas">O nas</a>
+			<a href="/oferta">Oferta</a>
+			<a href="/#faq">FAQ</a>
+			<a href="/kontakt" class="przycisk">Kontakt</a>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.naglowek { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--tlo-pasek); }
+	.pasek { background: var(--tlo-pasek); font-size: 0.8rem; color: var(--tekst-slaby); }
+	.pasek-wnetrze { display: flex; align-items: center; gap: 0.75rem; min-height: 2.3rem; }
+	.pasek a { text-decoration: none; }
+	.pasek-adres { font-family: var(--font-naglowki); font-weight: 500; }
+	.pasek-email { margin-left: auto; }
+	.menu { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; }
+	.salon { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--wisnia); font-family: var(--font-naglowki); font-weight: 500; font-size: 0.9rem; }
+	nav { display: flex; align-items: center; gap: 1.25rem; font-size: 0.9rem; }
+	nav a:not(.przycisk) { text-decoration: none; color: var(--tekst); }
+	nav a:not(.przycisk):hover { color: var(--zielen); }
+
+	@media (max-width: 640px) {
+		.pasek-adres { display: none; }
+		.menu { flex-wrap: wrap; justify-content: center; gap: 0.5rem; padding-block: 0.6rem; }
+		nav { gap: 1rem; }
+	}
+</style>

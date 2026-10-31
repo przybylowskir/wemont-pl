@@ -17,13 +17,13 @@ export const firma = {
 		'Niedziela - odpoczywamy',
 	],
 	telefony: [
-		{ osoba: 'Mirek', wyswietlany: '+48-608-718-597', href: 'tel:0048608718597' },
-		{ osoba: 'Wojtek', wyswietlany: '+48-660-235-515', href: 'tel:0048660235515' },
+		{ osoba: 'Mirek', wyswietlany: '+48-608-718-597', href: 'tel:+48608718597' },
+		{ osoba: 'Wojtek', wyswietlany: '+48-660-235-515', href: 'tel:+48660235515' },
 	],
 	emailBiuro: 'biuro@wemont.pl',
 	emailSprzedaz: 'sprzedaz@wemont.pl',
 	nip: '6711861917',
-	regon: '5287323100',
+	regon: '52873231000000', // jak w polityce prywatności na Framerze
 	// Kanoniczny adres tej strony (z www, jak na Framerze).
 	www: 'https://www.wemont.pl',
 	// Strona o szlabanach i automatyce (osobne repo wemont-strona).

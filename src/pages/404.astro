@@ -2,6 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Nie ma takiej strony | Wemont" description="Nie ma takiej strony.">
-	<h1>Nie ma takiej strony</h1>
-	<p><a href="/">Strona główna</a></p>
+	<section class="kontener sekcja">
+		<h1>Wygląda na to, że zabłądziłeś w internecie 😅</h1>
+		<p><a href="/" class="przycisk">Wróć na stronę główną</a></p>
+	</section>
 </BaseLayout>
+
+<style>
+	section { text-align: center; min-height: 50vh; }
+	h1 { color: #1d1d1b; font-size: clamp(1.4rem, 3vw, 1.75rem); font-weight: 600; margin-bottom: 2rem; }
+</style>

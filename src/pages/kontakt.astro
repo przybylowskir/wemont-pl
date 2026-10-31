@@ -1,0 +1,102 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { firma } from '../data/firma';
+import mirek from '../assets/zdjecia/zespol/mirek.jpg';
+import wojtek from '../assets/zdjecia/zespol/wojtek.jpg';
+// Mapa z danych OpenStreetMap (scripts/mapy/) zamiast osadzonej mapy Google (Robert, 31.10.2026).
+// Inline, nie <img>: napisy w SVG biorą Montserrat ze strony.
+import MapaSvg from '../assets/mapy-osm/mapa-dojazdu.svg';
+
+// Link do Map Google jak w pasku na Framerze.
+const mapy = 'https://maps.app.goo.gl/JbgDnKqMGwJug7CT6';
+const [telMirek, telWojtek] = firma.telefony;
+const rozmowy = [
+	{ tel: telMirek, zdjecie: mirek, wstep: 'Chętnie odpowiem na Twoje pytania!', z: 'z Mirkiem', ciemna: true },
+	{ tel: telWojtek, zdjecie: wojtek, wstep: 'Z przyjemnością Ci doradzimy!', z: 'z Wojtkiem', ciemna: false },
+];
+---
+<BaseLayout
+	title="Kontakt - Wemont, ul. Sienkiewicza 19, Kołobrzeg"
+	description="Zadzwoń: 608 718 597 (Mirek) lub 660 235 515 (Wojtek). Salon Wemont, ul. Henryka Sienkiewicza 19, Kołobrzeg. Poniedziałek-piątek 8:00-16:00."
+>
+	<section class="kontener sekcja">
+		<h1><span>Masz pytania?</span> Potrzebujesz fachowej porady?</h1>
+
+		<div class="rozmowy">
+			{rozmowy.map((r) => (
+				<a href={r.tel.href} class:list={['rozmowa', { ciemna: r.ciemna }]}>
+					<strong>Zadzwoń: {r.tel.wyswietlany}</strong>
+					<span class="wstep">{r.wstep}</span>
+					<span class="osoba">
+						<Image src={r.zdjecie} alt="" width={80} height={80} />
+						<span><b>Porozmawiaj</b><br />{r.z}</span>
+						<span class="strzalka" aria-hidden="true">→</span>
+					</span>
+				</a>
+			))}
+		</div>
+
+		<div class="dane">
+			<div>
+				<h2>Wolisz napisać?</h2>
+				<p>Wyślij e-mail do biura<br /><a href={`mailto:${firma.emailBiuro}`}>{firma.emailBiuro}</a></p>
+				<p>Wyślij e-mail działu handlowego<br /><a href={`mailto:${firma.emailSprzedaz}`}>{firma.emailSprzedaz}</a></p>
+			</div>
+			<div>
+				<h2>Adres</h2>
+				<p>{firma.adres.ulica}<br />{firma.adres.kod} {firma.adres.miasto}<br />Polska</p>
+			</div>
+		</div>
+
+		<figure class="mapa">
+			<a href={mapy} target="_blank" rel="noopener">
+				<MapaSvg class="mapa-svg" role="img" aria-label="Mapa dojazdu do salonu Wemont, ul. Sienkiewicza 19" />
+				<span>Otwórz dojazd w Google Maps<span class="sr-only"> (otwiera się w nowej karcie)</span></span>
+			</a>
+			<figcaption>Dane mapy: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">autorzy OpenStreetMap</a></figcaption>
+		</figure>
+	</section>
+</BaseLayout>
+
+<style>
+	h1 { color: var(--zielen); font-size: clamp(1.75rem, 4vw, 2.4rem); font-weight: 700; max-width: 22rem; }
+	h1 span { display: block; color: var(--szary-jasny); margin-bottom: 0.5rem; }
+	.rozmowy { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0.75rem; margin-top: 3rem; }
+	.rozmowa {
+		display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem; border-radius: 0.75rem;
+		background: #fff; border: 1px solid #f0f0f0; text-decoration: none; color: #27272a; font-size: 0.85rem;
+	}
+	.rozmowa strong { font-family: var(--font-naglowki); font-size: 0.95rem; }
+	.wstep { color: var(--tekst-slaby); }
+	.ciemna { background: #1b1b1b; color: #fff; box-shadow: 0 10px 30px rgb(0 0 0 / 0.25); }
+	.ciemna .wstep { color: #a1a1aa; }
+	.osoba {
+		display: flex; align-items: center; gap: 0.75rem; margin-top: 1.5rem;
+		padding: 0.5rem; border-radius: 999px; background: #f4f4f5;
+	}
+	.ciemna .osoba { background: #2e2e2e; }
+	.osoba :global(img) { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+	.osoba b { font-family: var(--font-naglowki); font-weight: 500; }
+	.strzalka {
+		margin-left: auto; width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center;
+		background: #fff; color: #27272a; border: 1px solid #e4e4e7;
+	}
+	.ciemna .strzalka { background: #1b1b1b; color: #fff; border-color: #3f3f46; }
+
+	.dane {
+		display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem 3rem;
+		margin-top: 0.75rem; padding: 1.25rem; border-radius: 0.75rem; background: #fafafa; font-size: 0.95rem;
+	}
+	.dane h2 { font-size: 0.9rem; font-weight: 600; color: #27272a; margin-bottom: 0.75rem; }
+	.dane a { color: var(--zielen-przycisk); }
+
+	.mapa { margin: 3rem 0 0; }
+	.mapa > a { display: flex; flex-direction: column; gap: 0.5rem; font-weight: 600; color: var(--zielen); }
+	.mapa :global(.mapa-svg) {
+		width: 100%; height: auto; aspect-ratio: 1600 / 1000;
+		border-radius: 0.75rem; box-shadow: 0 10px 30px rgb(0 0 0 / 0.1);
+	}
+	figcaption { font-size: 0.8rem; color: var(--tekst-slaby); margin-top: 0.25rem; }
+	figcaption a { color: inherit; }
+</style>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Kafel from '../components/Kafel.astro';
+import { oferta } from '../data/oferta';
+
+// Zdjęcia kafli: src/assets/zdjecia/oferta/<slug>.(jpg|webp), dobór jak na Framerze (ZRODLA.txt).
+const pliki = import.meta.glob<{ default: ImageMetadata }>('../assets/zdjecia/oferta/*.{jpg,webp}', { eager: true });
+const zdjecie = (slug: string) =>
+	Object.entries(pliki).find(([sciezka]) => sciezka.includes(`/${slug}.`))![1].default;
+
+const grupy = [
+	{ id: 'dladomu', tytul: 'Dla domu', pozycje: oferta.filter((p) => p.grupa === 'dom') },
+	{ id: 'dlafirmy', tytul: 'Dla firmy', pozycje: oferta.filter((p) => p.grupa === 'firma') },
+];
+---
+<BaseLayout
+	title="Oferta - bramy, ogrodzenia, drzwi i okna Wiśniowski | Wemont Kołobrzeg"
+	description="Bramy garażowe i przemysłowe, ogrodzenia, drzwi i okna Wiśniowski dla domu i dla firmy. Sprzedaż i montaż - Wemont, Salon Partnerski Wiśniowski w Kołobrzegu."
+>
+	<h1 class="sr-only">Oferta Wemont - produkty Wiśniowski dla domu i dla firmy</h1>
+	{grupy.map((g) => (
+		<section class="sekcja kontener-szeroki" id={g.id}>
+			<h2 class="tytul">{g.tytul}</h2>
+			<div class="kafle">
+				{g.pozycje.map((p) => <Kafel href={`/${p.slug}`} zdjecie={zdjecie(p.slug)} podpis={p.nazwa} />)}
+			</div>
+		</section>
+	))}
+</BaseLayout>
+
+<style>
+	.kontener-szeroki { width: min(100% - 2rem, 1130px); margin-inline: auto; }
+	.sekcja + .sekcja { padding-top: 0; }
+	.tytul { text-align: center; margin-bottom: 2.5rem; }
+	.kafle { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+	@media (max-width: 640px) { .kafle { grid-template-columns: 1fr; } }
+</style>

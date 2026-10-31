@@ -1,0 +1,60 @@
+---
+// Slider zdjęć: przewijanie z przyciągnięciem (CSS) + strzałki. Bez biblioteki.
+import { Image } from 'astro:assets';
+
+interface Props {
+	zdjecia: ImageMetadata[];
+	alt: string;
+	etykieta: string;
+}
+const { zdjecia, alt, etykieta } = Astro.props;
+---
+<div class="slider" data-slider aria-label={etykieta} role="region">
+	<div class="slajdy" data-slajdy tabindex="0">
+		{zdjecia.map((s, i) => (
+			<Image
+				src={s}
+				alt={alt}
+				widths={[480, 800, 1200, 1600]}
+				sizes="(max-width: 790px) 100vw, 790px"
+				loading={i === 0 ? 'eager' : 'lazy'}
+				fetchpriority={i === 0 ? 'high' : 'auto'}
+			/>
+		))}
+	</div>
+	<slot />
+	<button type="button" class="strzalka lewa" data-wstecz aria-label="Poprzednie zdjęcie">‹</button>
+	<button type="button" class="strzalka prawa" data-dalej aria-label="Następne zdjęcie">›</button>
+</div>
+
+<script>
+	for (const s of document.querySelectorAll<HTMLElement>('[data-slider]')) {
+		const tor = s.querySelector<HTMLElement>('[data-slajdy]')!;
+		const krok = (k: number) => tor.scrollBy({ left: k * tor.clientWidth, behavior: 'smooth' });
+		s.querySelector('[data-wstecz]')!.addEventListener('click', () => {
+			if (tor.scrollLeft < 10) tor.scrollTo({ left: tor.scrollWidth, behavior: 'smooth' });
+			else krok(-1);
+		});
+		s.querySelector('[data-dalej]')!.addEventListener('click', () => {
+			if (tor.scrollLeft + tor.clientWidth >= tor.scrollWidth - 10) tor.scrollTo({ left: 0, behavior: 'smooth' });
+			else krok(1);
+		});
+	}
+</script>
+
+<style>
+	.slider { position: relative; }
+	.slajdy {
+		display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+		height: min(calc((100vw - 2rem) * 2 / 3), 70vh, 527px);
+	}
+	.slajdy::-webkit-scrollbar { display: none; }
+	.slajdy :global(img) { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
+	.strzalka {
+		position: absolute; top: 50%; translate: 0 -50%;
+		width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 0;
+		background: rgb(0 0 0 / 0.45); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer;
+	}
+	.lewa { left: 1rem; }
+	.prawa { right: 1rem; }
+</style>
