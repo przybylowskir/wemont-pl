@@ -22,8 +22,10 @@ const kanoniczny = new URL(Astro.url.pathname, Astro.site);
 		<meta name="description" content={description} />
 		<link rel="canonical" href={kanoniczny} />
 		{podglad && <meta name="robots" content="noindex, nofollow" />}
-		<!-- Baner cookies easy.tools: licencja Roberta, kod z Framera (31.10.2026). -->
-		<script is:inline src="https://app.easy.tools/cookies/scripts/ddeab2d06e484e8683c263d9f50d8e56.js"></script>
+		<!-- Baner cookies easy.tools: licencja Roberta, kod z Framera (31.10.2026).
+		     defer (07.11.2026): skrypt i tak czeka na DOMContentLoaded, a bez defer blokował
+		     renderowanie strony o ~0,8 s (PageSpeed, telefon). -->
+		<script is:inline defer src="https://app.easy.tools/cookies/scripts/ddeab2d06e484e8683c263d9f50d8e56.js"></script>
 	</head>
 	<body>
 		<Header />

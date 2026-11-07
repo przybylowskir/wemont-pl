@@ -18,7 +18,7 @@ const { zdjecia, alt, etykieta, odstep = 3000 } = Astro.props;
 			<Image
 				src={s}
 				alt={alt}
-				widths={[480, 800, 1200, 1600]}
+				widths={[480, 640, 720, 800, 1200, 1600]}
 				sizes="(max-width: 790px) 100vw, 790px"
 				loading={i === 0 ? 'eager' : 'lazy'}
 				fetchpriority={i === 0 ? 'high' : 'auto'}

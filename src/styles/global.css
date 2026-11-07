@@ -5,7 +5,7 @@
 	--wisnia: #712043; /* „Salon Partnerski Wiśniowski” */
 	--tekst: #3f3f46;
 	--tekst-slaby: #71717a;
-	--szary-jasny: #96969a;
+	--szary-jasny: #71717a; /* Framer: #96969a - kontrast 2.9:1, za mało (WCAG AA 4.5:1); ten ma 4.8:1 */
 	--tlo: #fff;
 	--tlo-pasek: #f4f4f5;
 	--tlo-ciemne: #232423;

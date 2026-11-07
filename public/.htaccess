@@ -28,4 +28,8 @@ RewriteRule ^([^.]+)$ /$1.html [L]
 	ExpiresByType image/png "access plus 1 year"
 	ExpiresByType font/woff2 "access plus 1 year"
 	ExpiresByType image/svg+xml "access plus 1 month"
+	# CSS i JS mają w nazwie skrót treści (/_astro/plik.HASH.js) - nowa wersja to nowy plik.
+	ExpiresByType text/css "access plus 1 year"
+	ExpiresByType application/javascript "access plus 1 year"
+	ExpiresByType text/javascript "access plus 1 year"
 </IfModule>
