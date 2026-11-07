@@ -14,7 +14,12 @@ import wisniowski from '../assets/logo/wisniowski-poziom-inverse.png';
 				<Image src={logo} alt="Wemont" width={110} />
 				<p class="partner">Salon Partnerski<br /><Image src={wisniowski} alt="Wiśniowski" width={150} /></p>
 				<p><a href="/politykaprywatnosci">Polityka prywatności</a></p>
-				<p class="slaby">© 2024 - Wemont</p>
+				<p class="slaby">© 2024–<span data-rok>{new Date().getFullYear()}</span> Wemont</p>
+				<script is:inline>
+					// Zakres 2024 - bieżący rok (Robert 07.11.2026), bieżący rok liczony w przeglądarce - strona statyczna,
+					// rok z budowania zostaje tylko jako wartość zapasowa bez JavaScriptu.
+					document.querySelectorAll('[data-rok]').forEach((e) => (e.textContent = new Date().getFullYear()));
+				</script>
 			</div>
 			<nav aria-label="Stopka">
 				<a href="/">Start</a>
