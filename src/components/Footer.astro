@@ -6,8 +6,9 @@ import logo from '../assets/logo/logo-poziom-zlamana-biel.svg';
 import wisniowski from '../assets/logo/wisniowski-poziom-inverse.png';
 ---
 <footer class="stopka">
-	<div class="kontener">
-		<div class="logo-duze" aria-hidden="true"><Image src={logo} alt="" width={720} /></div>
+	<div class="logo-duze" aria-hidden="true" data-logo-stopki><Image src={logo} alt="" width={800} /></div>
+	<div class="rozmycie" aria-hidden="true">{[1, 2, 3, 4, 5, 6, 7, 8].map(() => <div />)}</div>
+	<div class="kontener tresc">
 		<div class="kolumny">
 			<div>
 				<Image src={logo} alt="Wemont" width={110} />
@@ -29,10 +30,52 @@ import wisniowski from '../assets/logo/wisniowski-poziom-inverse.png';
 	</div>
 </footer>
 
+<script>
+	// Duże logo wjeżdża w stopkę spod jasnej części strony (paralaksa jak na Framerze, odczyt 07.11.2026):
+	// 1000 px przed końcem strony jest schowane nad stopką, na samym dole wystaje z niej 144 px.
+	const logo = document.querySelector<HTMLElement>('[data-logo-stopki]');
+	if (logo && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		let czeka = false;
+		const ustaw = () => {
+			czeka = false;
+			const doKonca = document.documentElement.scrollHeight - innerHeight - scrollY;
+			logo.style.translate = `-50% ${-Math.min(144, Math.max(0, doKonca) * 0.144)}px`;
+		};
+		addEventListener('scroll', () => { if (!czeka) { czeka = true; requestAnimationFrame(ustaw); } }, { passive: true });
+		addEventListener('resize', ustaw);
+		ustaw();
+	}
+</script>
+
 <style>
-	.stopka { width: min(100%, var(--szerokosc-pas)); margin-inline: auto; background: var(--tlo-ciemne); color: #fafafa; padding-block: 2rem 3rem; font-size: 0.9rem; }
+	.stopka {
+		position: relative; overflow: hidden;
+		/* Ciemne tło na całą szerokość okna (Robert 07.11.2026); treść w .kontener. */
+		background: var(--tlo-ciemne); color: #fafafa; padding-block: 205px 3rem; font-size: 0.9rem;
+	}
 	.stopka a { text-decoration: none; }
-	.logo-duze { opacity: 0.55; filter: blur(1px); max-width: 720px; -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent); margin: 0 auto 4rem; }
+	.tresc { position: relative; z-index: 9; }
+
+	/* Duże logo: 800 px, górą schowane nad krawędzią stopki (overflow: hidden), maska z Framera. */
+	.logo-duze {
+		position: absolute; top: -51px; left: 50%; translate: -50% 0;
+		width: min(800px, 100% - 2rem);
+		-webkit-mask-image: radial-gradient(56% 83% at 50% 17.7%, #000 25%, rgb(0 0 0 / 0.4) 100%);
+		mask-image: radial-gradient(56% 83% at 50% 17.7%, #000 25%, rgb(0 0 0 / 0.4) 100%);
+	}
+	.logo-duze :global(img) { width: 100%; }
+
+	/* Rozmycie przy górnej krawędzi: 8 warstw backdrop-filter, im wyżej tym mocniej (jak na Framerze). */
+	.rozmycie { position: absolute; inset: 0 0 auto; height: 145px; pointer-events: none; }
+	.rozmycie > :global(div) { position: absolute; inset: 0; }
+	.rozmycie > :global(div:nth-child(1)) { z-index: 1; backdrop-filter: blur(0.078px); -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); mask-image: linear-gradient(to top, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); }
+	.rozmycie > :global(div:nth-child(2)) { z-index: 2; backdrop-filter: blur(0.156px); -webkit-mask-image: linear-gradient(to top, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); mask-image: linear-gradient(to top, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); }
+	.rozmycie > :global(div:nth-child(3)) { z-index: 3; backdrop-filter: blur(0.313px); -webkit-mask-image: linear-gradient(to top, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); mask-image: linear-gradient(to top, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); }
+	.rozmycie > :global(div:nth-child(4)) { z-index: 4; backdrop-filter: blur(0.625px); -webkit-mask-image: linear-gradient(to top, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); mask-image: linear-gradient(to top, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); }
+	.rozmycie > :global(div:nth-child(5)) { z-index: 5; backdrop-filter: blur(1.25px); -webkit-mask-image: linear-gradient(to top, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); mask-image: linear-gradient(to top, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); }
+	.rozmycie > :global(div:nth-child(6)) { z-index: 6; backdrop-filter: blur(2.5px); -webkit-mask-image: linear-gradient(to top, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); mask-image: linear-gradient(to top, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); }
+	.rozmycie > :global(div:nth-child(7)) { z-index: 7; backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(to top, transparent 75%, #000 87.5%, #000 100%); mask-image: linear-gradient(to top, transparent 75%, #000 87.5%, #000 100%); }
+	.rozmycie > :global(div:nth-child(8)) { z-index: 8; backdrop-filter: blur(10px); -webkit-mask-image: linear-gradient(to top, transparent 87.5%, #000 100%); mask-image: linear-gradient(to top, transparent 87.5%, #000 100%); }
 	.kolumny { display: grid; gap: 2rem; grid-template-columns: repeat(3, 1fr); }
 	.kolumny > * { border-left: 1px solid #52525b; padding-left: 1.75rem; }
 	.kolumny > :first-child { border: 0; padding: 0; }
@@ -44,6 +87,6 @@ import wisniowski from '../assets/logo/wisniowski-poziom-inverse.png';
 	@media (max-width: 640px) {
 		.kolumny { grid-template-columns: 1fr; }
 		.kolumny > * { border: 0; padding: 0; }
-		.logo-duze { margin-bottom: 2.5rem; }
+		.stopka { padding-top: calc(144 / 800 * (100vw - 2rem) + 3rem); }
 	}
 </style>

@@ -18,7 +18,7 @@ const rozmowy = [
 ---
 <BaseLayout
 	title="Kontakt - Wemont, ul. Sienkiewicza 19, Kołobrzeg"
-	description="Zadzwoń: 608 718 597 (Mirek) lub 660 235 515 (Wojtek). Salon Wemont, ul. Henryka Sienkiewicza 19, Kołobrzeg. Poniedziałek-piątek 8:00-16:00."
+	description="Zadzwoń: 608 718 597 (Mirek) lub 660 235 515 (Wojtek). Salon Wemont, ul. Henryka Sienkiewicza 19, Kołobrzeg. Poniedziałek-piątek 9:00-16:00."
 >
 	<section class="kontener sekcja">
 		<h1><span>Masz pytania?</span> Potrzebujesz fachowej porady?</h1>
@@ -29,9 +29,11 @@ const rozmowy = [
 					<strong>Zadzwoń: {r.tel.wyswietlany}</strong>
 					<span class="wstep">{r.wstep}</span>
 					<span class="osoba">
-						<Image src={r.zdjecie} alt="" width={80} height={80} />
+						<Image src={r.zdjecie} alt="" width={96} height={96} />
 						<span><b>Porozmawiaj</b><br />{r.z}</span>
-						<span class="strzalka" aria-hidden="true">→</span>
+						<span class="strzalka" aria-hidden="true">
+							<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+						</span>
 					</span>
 				</a>
 			))}
@@ -71,18 +73,34 @@ const rozmowy = [
 	.wstep { color: var(--tekst-slaby); }
 	.ciemna { background: #1b1b1b; color: #fff; box-shadow: 0 10px 30px rgb(0 0 0 / 0.25); }
 	.ciemna .wstep { color: #a1a1aa; }
+	/* Pigułka „Porozmawiaj”: po najechaniu z prawej krawędzi wjeżdża kółko w odwrotnym kolorze
+	   (u Mirka białe, u Wojtka ciemne), strzałka zmienia kolor - jak na Framerze (07.11.2026). */
 	.osoba {
+		position: relative; overflow: hidden;
 		display: flex; align-items: center; gap: 0.75rem; margin-top: 1.5rem;
-		padding: 0.5rem; border-radius: 999px; background: #f4f4f5;
+		padding: 5px; border-radius: 999px; background: #f4f4f5;
 	}
-	.ciemna .osoba { background: #2e2e2e; }
-	.osoba :global(img) { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+	.ciemna .osoba { background: #27272a; }
+	.osoba :global(img) { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
 	.osoba b { font-family: var(--font-naglowki); font-weight: 500; }
 	.strzalka {
-		margin-left: auto; width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center;
-		background: #fff; color: #27272a; border: 1px solid #e4e4e7;
+		position: relative; margin-left: auto; width: 48px; height: 48px; border-radius: 50%;
+		display: grid; place-items: center; background: #fff; color: #232423;
+		transition: color 0.35s ease;
 	}
-	.ciemna .strzalka { background: #1b1b1b; color: #fff; border-color: #3f3f46; }
+	.strzalka::before {
+		content: ''; position: absolute; inset: 0; border-radius: 50%; background: #232423;
+		translate: calc(100% + 5px) 0; transition: translate 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+	.strzalka svg { position: relative; }
+	.ciemna .strzalka { background: #232423; color: #fff; }
+	.ciemna .strzalka::before { background: #fff; }
+	.rozmowa:hover .strzalka, .rozmowa:focus-visible .strzalka { color: #fff; }
+	.ciemna:hover .strzalka, .ciemna:focus-visible .strzalka { color: #232423; }
+	.rozmowa:hover .strzalka::before, .rozmowa:focus-visible .strzalka::before { translate: 0 0; }
+	@media (prefers-reduced-motion: reduce) {
+		.strzalka, .strzalka::before { transition: none; }
+	}
 
 	.dane {
 		display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem 3rem;

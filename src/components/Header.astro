@@ -4,20 +4,21 @@ import { firma } from '../data/firma';
 import logo from '../assets/logo/logo-poziom.svg';
 import salon from '../assets/logo/salon-wisniowski.png';
 
+// Rozmiary logo jak na Framerze (07.11.2026): Wemont 92 px szerokości, salon 40×40 px.
 // Link do Map Google z obecnego paska (Framer, 31.10.2026).
 const mapy = 'https://maps.app.goo.gl/JbgDnKqMGwJug7CT6';
 ---
 <header class="naglowek">
 	<div class="pasek">
 		<div class="kontener pasek-wnetrze">
-			<a href="/" class="pasek-logo"><Image src={logo} alt="Wemont" height={14} /></a>
+			<a href="/" class="pasek-logo"><Image src={logo} alt="Wemont" width={92} /></a>
 			<a href={mapy} class="pasek-adres">ul. H. Sienkiewicza 19, Kołobrzeg</a>
 			<a href={`mailto:${firma.emailBiuro}`} class="pasek-email">{firma.emailBiuro}</a>
 		</div>
 	</div>
 	<div class="kontener menu">
 		<a href="/" class="salon">
-			<Image src={salon} alt="" width={30} height={30} />
+			<Image src={salon} alt="" width={40} height={40} densities={[1, 2]} />
 			<span>{firma.podtytul}</span>
 		</a>
 		<nav aria-label="Menu główne">
@@ -36,7 +37,7 @@ const mapy = 'https://maps.app.goo.gl/JbgDnKqMGwJug7CT6';
 	.pasek a { text-decoration: none; }
 	.pasek-adres { font-family: var(--font-naglowki); font-weight: 500; }
 	.pasek-email { margin-left: auto; }
-	.menu { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; }
+	.menu { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.5rem; }
 	.salon { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--wisnia); font-family: var(--font-naglowki); font-weight: 500; font-size: 0.9rem; }
 	nav { display: flex; align-items: center; gap: 1.25rem; font-size: 0.9rem; }
 	nav a:not(.przycisk) { text-decoration: none; color: var(--tekst); }

@@ -5,6 +5,9 @@ import Slider from '../components/Slider.astro';
 import mirekBezTla from '../assets/zdjecia/zespol/mirek-bez-tla.png';
 import mirek from '../assets/zdjecia/zespol/mirek.jpg';
 import wojtek from '../assets/zdjecia/zespol/wojtek.jpg';
+// Tła kart zespołu - pasje poza pracą, jak na Framerze (ZRODLA.txt w zespol/).
+import pasjaMirek from '../assets/zdjecia/zespol/pasja-mirek.jpg';
+import pasjaWojtek from '../assets/zdjecia/zespol/pasja-wojtek.jpg';
 
 // Zdjęcia salonu: src/assets/zdjecia/onas (ZRODLA.txt). Teksty z Framera (31.10.2026),
 // poprawione: „na co dzień” (było „na codzień”) i podwójna spacja w opisie Mirka.
@@ -15,12 +18,14 @@ const salon = Object.values(
 const zespol = [
 	{
 		zdjecie: mirek,
+		pasja: pasjaMirek,
 		imie: 'Mirek Zieliński',
 		rola: 'Założyciel marki WEMONT',
 		opis: 'Bramy, ogrodzenia, drzwi nie mają przed nim żadnych tajemnic. Bogate doświadczenie w branży pozwala mu zawsze perfekcyjnie dobrać produkt do potrzeb i oczekiwań klienta. Skupiony na budowaniu długotrwałych relacji opartych na profesjonalizmie i zaufaniu. W wolnych chwilach podróżuje lub jest w pracy ;-).',
 	},
 	{
 		zdjecie: wojtek,
+		pasja: pasjaWojtek,
 		imie: 'Wojtek',
 		rola: 'Specjalista do spraw sprzedaży',
 		opis: 'Okna, bramy i drzwi nie mają przed nim żadnych tajemnic. Zawsze oferuje fachowe doradztwo oraz pełne wsparcie na każdym etapie zakupu. Zna najnowsze rozwiązania, nowe technologie i nie zawaha się ich użyć ;-). Ekspert w budowaniu długotrwałych relacji opartych na wzajemnym zaufaniu. W wolnym czasie pasjonat wędkarstwa.',
@@ -43,15 +48,15 @@ const zespol = [
 	</section>
 
 	<section class="kontener sekcja">
-		<div class="misja">
-			<div>
+		<div class="misja-ramka"><div class="misja">
+			<Image src={mirekBezTla} alt="" widths={[372, 744]} sizes="372px" class="misja-tlo" />
+			<div class="misja-tekst">
 				<h2>Jaka jest misja marki Wemont?</h2>
 				<p>Naszą misją jest dostarczenie klientom usług, które nie tylko spełniają ich oczekiwania, ale również przewyższają je pod względem jakości i designu. Wyróżniamy się na rynku dzięki innowacyjnemu podejściu do montażu, dbając o każdy detal oraz dopasowując rozwiązania do indywidualnych potrzeb klienta.</p>
 				<p>Stawiamy na zaufanie, bezpieczeństwo i satysfakcję naszych klientów. Dzięki rzetelności, profesjonalizmowi oraz wykorzystaniu produktów renomowanej marki Wiśniowski, zapewniamy bezawaryjne działanie zamontowanych produktów przez wiele lat.</p>
 				<p>Nasze usługi realizujemy przez doświadczonych fachowców, co gwarantuje maksymalne bezpieczeństwo i ochronę. Podchodzimy indywidualnie do każdego klienta, oferujemy szeroki wybór produktów oraz fachowe doradztwo, aby spełnić wszystkie oczekiwania i zapewnić pełną satysfakcję z wyboru oferowanych produktów.</p>
 			</div>
-			<Image src={mirekBezTla} alt="" widths={[300, 600]} sizes="300px" class="misja-zdjecie" />
-		</div>
+		</div></div>
 	</section>
 
 	<section class="zespol">
@@ -61,6 +66,7 @@ const zespol = [
 			<div class="karty">
 				{zespol.map((o) => (
 					<article class="karta">
+						<Image src={o.pasja} alt="" widths={[400, 800]} sizes="(max-width: 640px) 100vw, 386px" class="pasja" />
 						<Image src={o.zdjecie} alt={o.imie} width={112} height={112} class="awatar" />
 						<h3>{o.imie}</h3>
 						<p class="rola">{o.rola}</p>
@@ -74,7 +80,18 @@ const zespol = [
 
 <style>
 	.naglowek-strony { padding-top: 0.5rem; }
-	.naglowek-strony :global(.slider) { box-shadow: 0 20px 40px rgb(0 0 0 / 0.12); }
+	/* Cień pod sliderem - 8 warstw z Framera (07.11.2026). */
+	.naglowek-strony :global(.slider) {
+		box-shadow:
+			rgb(0 0 0 / 0.08) 0 1.34px 1.07px -0.31px,
+			rgb(0 0 0 / 0.08) 0 3.18px 2.55px -0.63px,
+			rgb(0 0 0 / 0.08) 0 5.81px 4.65px -0.94px,
+			rgb(0 0 0 / 0.08) 0 9.66px 7.73px -1.25px,
+			rgb(0 0 0 / 0.08) 0 15.6px 12.48px -1.56px,
+			rgb(0 0 0 / 0.08) 0 25.53px 20.42px -1.88px,
+			rgb(0 0 0 / 0.08) 0 43.96px 35.17px -2.19px,
+			rgb(0 0 0 / 0.08) 0 80px 64px -2.5px;
+	}
 	h1 {
 		position: absolute; inset: auto 1rem 12%; text-align: center; pointer-events: none;
 		color: #fff; font-size: clamp(1.4rem, 4vw, 2.1rem); font-weight: 700;
@@ -87,28 +104,65 @@ const zespol = [
 	.liczby li + li { border-left: 1px solid var(--ramka); }
 	.liczby strong { display: block; color: var(--tekst-slaby); font-family: var(--font-naglowki); font-weight: 500; }
 
-	.misja {
-		display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end;
-		padding: 2rem 0 0 2rem; box-shadow: 0 4px 30px rgb(0 0 0 / 0.1); overflow: hidden;
+	/* Misja: zdjęcie Mirka jako tło po prawej, wtapiane w biel (maska i cienie z Framera, 07.11.2026). */
+	.misja-ramka {
+		background: #f4f4f5; padding: 8px;
+		box-shadow:
+			rgb(0 0 0 / 0.18) 0.4px 0.4px 0.56px -0.94px,
+			rgb(0 0 0 / 0.17) 1.21px 1.21px 1.71px -1.88px,
+			rgb(0 0 0 / 0.15) 3.19px 3.19px 4.51px -2.81px,
+			rgb(0 0 0 / 0.06) 10px 10px 14.14px -3.75px;
 	}
-	.misja > div { padding-bottom: 2rem; }
+	.misja {
+		position: relative; overflow: hidden; background: #fff; padding: 40px 268px 40px 48px;
+		box-shadow:
+			rgb(0 0 0 / 0.04) 0 0.6px 1.57px -1.25px,
+			rgb(0 0 0 / 0.03) 0 2.29px 5.95px -2.5px,
+			rgb(0 0 0 / 0.01) 0 10px 26px -3.75px;
+	}
+	.misja-tekst { position: relative; z-index: 1; }
+	.misja :global(.misja-tlo) {
+		position: absolute; top: 0; right: 0; width: 372px; height: 100%; object-fit: cover; filter: grayscale(1);
+		-webkit-mask-image: linear-gradient(90deg, transparent -7%, rgb(0 0 0 / 0.09) 25%, #000 100%);
+		mask-image: linear-gradient(90deg, transparent -7%, rgb(0 0 0 / 0.09) 25%, #000 100%);
+	}
 	.misja h2 { color: #1d1d1b; font-size: 1.15rem; font-weight: 600; margin-bottom: 1.25rem; }
 	.misja p { font-size: 0.95rem; line-height: 1.9; }
-	.misja :global(.misja-zdjecie) { width: 220px; filter: grayscale(1); align-self: end; }
 
 	.zespol { background: #fafafa; }
 	.zespol h2 { text-align: center; color: #1d1d1b; font-size: clamp(1.5rem, 3vw, 1.75rem); font-weight: 600; }
 	.podtytul { text-align: center; color: var(--tekst-slaby); max-width: 22rem; margin: 1rem auto 3rem; }
 	.karty { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
-	.karta { background: #fff; padding: 1.5rem; font-size: 0.95rem; color: var(--tekst-slaby); }
-	.karta :global(.awatar) { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; }
+	/* Karta zespołu: u góry zdjęcie pasji wtapiane w biel, na nim awatar w białej obwódce (jak na Framerze). */
+	.karta {
+		position: relative; background: #fff; padding: 24px 24px 20px; font-size: 0.95rem; color: var(--tekst-slaby);
+		box-shadow:
+			rgb(0 0 0 / 0.07) 0 0.36px 0.51px -1.17px,
+			rgb(0 0 0 / 0.06) 0 1.37px 1.92px -2.33px,
+			rgb(0 0 0 / 0.04) 0 6px 8.4px -3.5px;
+	}
+	.karta :global(.pasja) {
+		position: absolute; top: 4px; left: 4px; width: calc(100% - 8px); height: 130px; object-fit: cover;
+		-webkit-mask-image: radial-gradient(79% 119% at 67.3% -27.7%, rgb(0 0 0 / 0.7) 0%, transparent 100%);
+		mask-image: radial-gradient(79% 119% at 67.3% -27.7%, rgb(0 0 0 / 0.7) 0%, transparent 100%);
+	}
+	.karta > :not(.pasja) { position: relative; }
+	.karta :global(.awatar) {
+		width: 56px; height: 56px; border-radius: 50%; object-fit: cover; margin-bottom: 2.75rem;
+		box-shadow: #fff 0 0 0 2px, rgb(0 0 0 / 0.24) 0 16px 28px -11px;
+	}
 	.karta h3 { color: #1d1d1b; font-size: 1rem; font-weight: 600; }
 	.rola { font-size: 0.85rem; margin: 0.25rem 0 1rem; }
 
 	@media (max-width: 640px) {
 		.liczby { grid-template-columns: 1fr; gap: 1.25rem; }
 		.liczby li + li { border: 0; }
-		.misja { grid-template-columns: 1fr; padding: 1.5rem 1.5rem 0; }
-		.misja :global(.misja-zdjecie) { width: 180px; justify-self: end; }
+		/* Telefon: zdjęcie Mirka pod tekstem, wtapiane w biel od góry. */
+		.misja { padding: 1.5rem 1.5rem 300px; }
+		.misja :global(.misja-tlo) {
+			top: auto; bottom: 0; width: 100%; height: 340px; object-position: 50% 20%;
+			-webkit-mask-image: linear-gradient(transparent 0%, rgb(0 0 0 / 0.09) 25%, #000 100%);
+			mask-image: linear-gradient(transparent 0%, rgb(0 0 0 / 0.09) 25%, #000 100%);
+		}
 	}
 </style>

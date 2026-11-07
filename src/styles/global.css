@@ -11,7 +11,7 @@
 	--tlo-ciemne: #232423;
 	--ramka: #e4e4e7;
 	--szerokosc: 790px; /* jak treść na Framerze */
-	--szerokosc-pas: 1190px; /* ciemne pasy: opinie, stopka */
+	--szerokosc-pas: 1190px; /* ciemny pas opinii, karty nulead */
 	--font-tekst: 'Montserrat Variable', system-ui, sans-serif;
 	--font-naglowki: 'Rubik Variable', system-ui, sans-serif;
 }

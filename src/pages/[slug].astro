@@ -20,6 +20,34 @@ const dla = p.grupa === 'dom' ? 'dla domu' : 'dla firmy';
 	</div>
 </BaseLayout>
 
+<script>
+	// Zabezpieczenie wysokości kart nulead (07.11.2026). Karty to iframe z api.nulead.pl o wysokości
+	// podawanej przez jego wnętrze: przy zmianie rozmiaru i przez ~minutę po wczytaniu. Robert widział
+	// ucięty koniec treści (strona „kończy przewijanie” przed ostatnimi sekcjami) - wysokość nie nadążyła.
+	// Wnętrze przelicza wysokość przy każdej zmianie szerokości, więc gdy czytelnik zbliża się do końca
+	// ramki, poszerzamy ją na chwilę o 1 px. Nic nie zmienia, gdy wysokość jest już dobra.
+	const ramka = () => document.querySelector<HTMLIFrameElement>('.karty iframe');
+	let ostatnio = 0;
+	const szturchnij = () => {
+		const f = ramka();
+		if (!f) return;
+		ostatnio = Date.now();
+		const szer = f.style.width || '100%';
+		f.style.width = `calc(${szer} - 1px)`;
+		setTimeout(() => (f.style.width = szer), 150);
+	};
+	addEventListener('load', () => [2000, 6000, 15000].forEach((t) => setTimeout(szturchnij, t)));
+	addEventListener(
+		'scroll',
+		() => {
+			const f = ramka();
+			if (!f || Date.now() - ostatnio < 2000) return;
+			if (f.getBoundingClientRect().bottom < innerHeight * 2.5) szturchnij();
+		},
+		{ passive: true },
+	);
+</script>
+
 <style>
 	/* Karty nulead są szersze niż treść strony - jak na Framerze. */
 	.karty { width: min(100% - 2rem, var(--szerokosc-pas)); padding-block: 2rem 4rem; min-height: 60vh; }

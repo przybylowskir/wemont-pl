@@ -2,14 +2,25 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Slider from '../components/Slider.astro';
 import Kafel from '../components/Kafel.astro';
-import { opinie, faq } from '../data/opinie';
+import { Image } from 'astro:assets';
+import { opinieGoogle, linkDoOpinii, faq } from '../data/opinie';
 import dlaDomu from '../assets/zdjecia/dla-domu.jpg';
 import dlaFirmy from '../assets/zdjecia/dla-firmy.jpg';
 
-// Zdjęcia slidera: src/assets/zdjecia/slider, kolejność wg nazw plików (źródła w ZRODLA.txt).
+// Zdjęcia slidera: src/assets/zdjecia/slider, kolejność wg nazw plików = kolejność z Framera (ZRODLA.txt).
 const slajdy = Object.values(
 	import.meta.glob<{ default: ImageMetadata }>('../assets/zdjecia/slider/*.jpg', { eager: true }),
 ).map((m) => m.default);
+
+// Screeny opinii z Google, kolejność wg nazw plików; dosłowna treść do alt w data/opinie.ts.
+const opinie = Object.entries(
+	import.meta.glob<{ default: ImageMetadata }>('../assets/opinie-google/*.png', { eager: true }),
+).map(([sciezka, m]) => {
+	const klucz = sciezka.split('/').pop()!.replace('.png', '');
+	const o = opinieGoogle[klucz];
+	if (!o) throw new Error(`Brak treści opinii dla ${klucz} w data/opinie.ts`);
+	return { obraz: m.default, ...o };
+});
 
 // Opis z Framera (31.10.2026), bez zmian.
 const opis =
@@ -43,16 +54,23 @@ const opis =
 			<p class="oceny"><span aria-hidden="true">✨</span> <strong>Oceny 5/5</strong> od naszych zadowolonych klientów</p>
 			<div class="opinie-ramka" data-opinie>
 			<ul class="opinie-lista" data-slajdy tabindex="0">
-				{opinie.map((o) => (
+				{opinie.map((o, i) => (
 					<li>
-						<blockquote>{o.tekst}</blockquote>
-						<p class="autor"><strong>{o.autor}</strong><br />{o.podpis}</p>
+						<Image
+							src={o.obraz}
+							alt={`Opinia z Google, 5 gwiazdek, ${o.autor}: ${o.tekst}`}
+							widths={[440, 880]}
+							sizes="(max-width: 640px) calc(100vw - 2rem), 440px"
+							loading={i === 0 ? 'eager' : 'lazy'}
+						/>
 					</li>
 				))}
 			</ul>
 			<button type="button" class="strzalka lewa" data-wstecz aria-label="Poprzednia opinia">‹</button>
 			<button type="button" class="strzalka prawa" data-dalej aria-label="Następna opinia">›</button>
 			</div>
+			<p class="opinie-link"><a href={linkDoOpinii} target="_blank" rel="noopener">Zobacz wszystkie opinie w Google<span class="sr-only"> (otwiera się w nowej karcie)</span></a></p>
+			<p class="opinie-info">Wybrane opinie z wizytówki Wemont w Google. Wemont nie weryfikuje, czy autorzy opinii są klientami firmy.</p>
 		</div>
 	</section>
 
@@ -70,22 +88,24 @@ const opis =
 </BaseLayout>
 
 <script>
-	// Opinie przewijane strzałkami, jak slider zdjęć.
-	for (const s of document.querySelectorAll<HTMLElement>('[data-opinie]')) {
-		const tor = s.querySelector<HTMLElement>('[data-slajdy]')!;
-		const krok = (k: number) => tor.scrollBy({ left: k * tor.clientWidth, behavior: 'smooth' });
-		s.querySelector('[data-wstecz]')!.addEventListener('click', () => krok(tor.scrollLeft < 10 ? 99 : -1));
-		s.querySelector('[data-dalej]')!.addEventListener('click', () =>
-			krok(tor.scrollLeft + tor.clientWidth >= tor.scrollWidth - 10 ? -99 : 1),
-		);
-	}
+	// Opinie: strzałki i autoprzewijanie, jak slider zdjęć. Dłuższy odstęp - tekst trzeba przeczytać.
+	import { karuzela } from '../scripts/karuzela';
+	for (const s of document.querySelectorAll<HTMLElement>('[data-opinie]')) karuzela(s, 7000);
 </script>
 
 <style>
-	.slider-ramka { padding-top: 0.5rem; }
+	/* Panel slidera: biały pas 1200 px z miękkim cieniem pod spodem - wartości cienia z Framera (07.11.2026). */
+	.slider-ramka {
+		width: min(100%, 1200px); margin-inline: auto; padding: 0.5rem 0 50px;
+		box-shadow:
+			rgb(212 212 216 / 0.73) 0 0.56px 0.56px -0.94px,
+			rgb(212 212 216 / 0.69) 0 1.69px 1.69px -1.88px,
+			rgb(212 212 216 / 0.59) 0 4.47px 4.47px -2.81px,
+			rgb(212 212 216 / 0.25) 0 14px 14px -3.75px;
+	}
 	.opinie-ramka { position: relative; }
 	.strzalka {
-		position: absolute; top: 40%; translate: 0 -50%;
+		position: absolute; top: 50%; translate: 0 -50%;
 		width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 0;
 		background: rgb(255 255 255 / 0.12); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer;
 	}
@@ -110,10 +130,12 @@ const opis =
 		display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
 	}
 	.opinie-lista::-webkit-scrollbar { display: none; }
-	.opinie-lista li { flex: 0 0 100%; scroll-snap-align: start; padding-inline: 3.5rem; }
-	blockquote { margin: 0; font-size: 1.05rem; line-height: 1.9; }
-	.autor { margin-top: 1.5rem; font-family: var(--font-naglowki); font-size: 0.85rem; color: #d4d4d8; }
-	.autor strong { color: #fff; font-size: 1rem; }
+	.opinie-lista { align-items: center; }
+	.opinie-lista li { flex: 0 0 100%; scroll-snap-align: start; padding-inline: 3.5rem; display: flex; justify-content: center; }
+	.opinie-lista :global(img) { width: 440px; max-width: 100%; border-radius: 0.75rem; }
+	.opinie-link { margin: 2rem 0 0; text-align: center; font-family: var(--font-naglowki); font-size: 0.9rem; }
+	.opinie-link a { color: #fff; }
+	.opinie-info { margin: 0.5rem 0 0; text-align: center; font-size: 0.75rem; color: #a1a1aa; }
 
 	.faq-tytul { text-align: center; color: #1d1d1b; font-size: clamp(1.5rem, 3vw, 1.75rem); font-weight: 600; }
 	.faq-tytul span { display: block; color: var(--szary-jasny); }
@@ -132,6 +154,8 @@ const opis =
 	@media (max-width: 640px) {
 		.liczby { grid-template-columns: 1fr; gap: 1.5rem; }
 		.liczby li + li { border: 0; }
-		.opinie-lista li { padding-inline: 2.75rem; }
+		/* Telefon: karta na całą szerokość, żeby tekst ze screena był czytelny; przewijanie palcem zamiast strzałek. */
+		.opinie-lista li { padding-inline: 0; }
+		.opinie-ramka .strzalka { display: none; }
 	}
 </style>

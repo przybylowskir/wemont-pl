@@ -3,6 +3,12 @@
 // - literówki, brakujące spacje po kropkach, „Sp. z o.o.”, urwany nawias „(w tym: ) ,”, e-mail bez adresu;
 // - usunięte cookies Google Analytics: nowa strona ich nie ma (bez Umami, Robert 31.10.2026);
 // - dopisany hosting (seohost.pl, logi 30 dni - jak na bramykolobrzeg.pl) i skrypty zewnętrzne (easy.tools, nulead).
+// 07.11.2026 (Aegis, na polecenie Roberta „dopisz, jeśli czegoś brakuje”): dopisane kontakt telefoniczny i e-mail,
+// opinie z Google, linki zewnętrzne, szczegóły nulead/contented.pl i easy.tools, odbiorcy, adres UODO,
+// zautomatyzowane decyzje, zmiany polityki.
+// 07.11.2026 (Robert: „Wemont nie prowadzi żadnych profili w mediach społecznościowych. Usuń wszystkie zbędne wpisy”):
+// usunięte portale społecznościowe, cele analityczne i statystyczne, cookies serwisowe (sesja, logowanie,
+// personalizacja), wzmianki o profilu i rejestracji Użytkownika oraz o wyłączaniu cookies niezbędnych.
 // 07.11.2026 (Robert): usunięte fragmenty szablonowe, których strona nie ma - płatne zamówienia,
 // marketing i newsletter, cookies marketingowe, remarketing i mapy ciepła; odbiorcy bez banków, kurierów i agencji.
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -39,33 +45,33 @@ const administrator = `Wemont Sp. z o.o., ${firma.adres.ulica.replace('ul. ', ''
 
 		<h2>Cele oraz podstawy prawne przetwarzania danych w serwisie</h2>
 		<h3>Korzystanie z serwisu</h3>
-		<p>Przetwarzamy dane osobowe wszystkich osób korzystających z Serwisu (w tym adres IP lub inne identyfikatory oraz informacje gromadzone za pośrednictwem plików cookies lub innych podobnych technologii), a niebędących zarejestrowanymi Użytkownikami (tj. osoby nieposiadające profilu w Serwisie) w następujących celach:</p>
+		<p>Przetwarzamy dane osobowe wszystkich osób korzystających z Serwisu (w tym adres IP lub inne identyfikatory oraz informacje gromadzone za pośrednictwem plików cookies lub innych podobnych technologii) w następujących celach:</p>
 		<ul>
 			<li>w celu świadczenia usług drogą elektroniczną w zakresie udostępniania Użytkownikom treści gromadzonych w Serwisie – wówczas podstawą prawną przetwarzania jest niezbędność przetwarzania do wykonania umowy (art. 6 ust. 1 lit. b RODO);</li>
-			<li>w celach analitycznych i statystycznych – wówczas podstawą prawną przetwarzania jest nasz uzasadniony interes (art. 6 ust. 1 lit. f RODO) polegający na prowadzeniu analiz aktywności Użytkowników, a także ich preferencji w celu poprawy stosowanych funkcjonalności i świadczonych usług;</li>
 			<li>w celu ewentualnego ustalenia i dochodzenia roszczeń lub obrony przed nimi – podstawą prawną przetwarzania jest nasz uzasadniony interes (art. 6 ust. 1 lit. f RODO) polegający na ochronie naszych praw.</li>
 		</ul>
-		<p>Twoja aktywność w Serwisie, w tym Twoje dane osobowe, są rejestrowane w logach systemowych. Zebrane w logach informacje przetwarzane są przede wszystkim w celach związanych ze świadczeniem usług. Przetwarzamy je również w celach technicznych, administracyjnych, na potrzeby zapewnienia bezpieczeństwa systemu informatycznego oraz zarządzania tym systemem, a także w celach analitycznych i statystycznych – w tym zakresie podstawą prawną przetwarzania jest nasz prawnie uzasadniony interes (art. 6 ust. 1 lit. f RODO).</p>
+		<p>Twoja aktywność w Serwisie, w tym Twoje dane osobowe, są rejestrowane w logach systemowych. Zebrane w logach informacje przetwarzane są przede wszystkim w celach związanych ze świadczeniem usług. Przetwarzamy je również w celach technicznych, administracyjnych, na potrzeby zapewnienia bezpieczeństwa systemu informatycznego oraz zarządzania tym systemem – w tym zakresie podstawą prawną przetwarzania jest nasz prawnie uzasadniony interes (art. 6 ust. 1 lit. f RODO).</p>
 
 		<h3>Hosting i dzienniki serwera</h3>
 		<p>Serwis jest utrzymywany na serwerach firmy seohost.pl. Serwer zapisuje w dziennikach (logach) adres IP, datę i godzinę wizyty, adres odwiedzonej strony oraz informacje o przeglądarce. Dzienniki są przechowywane przez 30 dni.</p>
 
-		<h3>Portale społecznościowe</h3>
-		<p>Przetwarzamy Twoje dane osobowe, gdy odwiedzasz nasze profile prowadzone w mediach społecznościowych (Facebook, YouTube, Instagram). Dane te są przetwarzane wyłącznie w związku z prowadzeniem profilu, w tym w celu informowania Cię o naszej aktywności oraz promowania różnego rodzaju wydarzeń, usług oraz produktów. Podstawą prawną przetwarzania danych osobowych w tym celu jest nasz uzasadniony interes (art. 6 ust. 1 lit. f RODO) polegający na promowaniu własnej marki.</p>
+		<h3>Kontakt telefoniczny i e-mailowy</h3>
+		<p>Serwis nie ma formularzy i nie zakłada kont. Twoje dane osobowe (imię i nazwisko, numer telefonu, adres e-mail, treść rozmowy lub wiadomości) dostajemy tylko wtedy, gdy sam do nas zadzwonisz albo napiszesz. Używamy ich do odpowiedzi na pytania, przygotowania oferty lub wyceny oraz do wykonania zamówionej usługi. Podstawą prawną jest niezbędność do podjęcia działań na Twoje żądanie przed zawarciem umowy i do jej wykonania (art. 6 ust. 1 lit. b RODO), a w pozostałej korespondencji nasz uzasadniony interes polegający na odpowiedzi na Twoją wiadomość (art. 6 ust. 1 lit. f RODO). Podanie danych jest dobrowolne, ale bez nich nie możemy odpowiedzieć ani przygotować oferty. Korespondencję przechowujemy przez czas potrzebny do obsługi sprawy, a gdy dotyczy umowy – do upływu okresu przedawnienia roszczeń i okresu przechowywania dokumentów wymaganego przepisami podatkowymi.</p>
+
+		<h3>Opinie klientów</h3>
+		<p>Na stronie głównej pokazujemy wybrane opinie z naszej wizytówki w Google, z imieniem lub nazwą i zdjęciem profilowym autora, tak jak są widoczne publicznie w Google. Robimy to w naszym uzasadnionym interesie, aby pokazać, jak oceniają nas klienci (art. 6 ust. 1 lit. f RODO). Jeśli jesteś autorem opinii i nie chcesz, żeby była pokazana w Serwisie, napisz do nas – usuniemy ją. Nie weryfikujemy, czy autorzy opinii są naszymi klientami.</p>
+
+		<h3>Linki do serwisów zewnętrznych</h3>
+		<p>Linki „Otwórz dojazd w Google Maps” i „Zobacz wszystkie opinie w Google” prowadzą do serwisów Google. Mapa dojazdu na stronie Kontakt jest obrazkiem przygotowanym z danych OpenStreetMap i nie łączy się z żadnym zewnętrznym serwerem. Po przejściu do serwisu zewnętrznego obowiązują jego zasady prywatności.</p>
 
 		<h2>Pliki cookies oraz podobna technologia</h2>
-		<p>Pliki cookies to małe pliki tekstowe instalowane na Twoim urządzeniu, gdy przeglądasz Serwis. Cookies zbierają informacje ułatwiające korzystanie ze strony internetowej – np. poprzez zapamiętywanie Twoich odwiedzin w Serwisie i dokonywanych przez Ciebie czynności. W ramach Serwisu możemy stosować następujące rodzaje cookies:</p>
-		<h3>Cookies serwisowe</h3>
-		<p>Wykorzystujemy tzw. cookies serwisowe przede wszystkim w celu dostarczania Ci usług świadczonych drogą elektroniczną oraz poprawy jakości tych usług. W związku z tym korzystamy z plików cookies, przechowując informacje lub uzyskując dostęp do informacji już przechowywanych w Twoim telekomunikacyjnym urządzeniu końcowym (komputer, telefon, tablet itp.). Pliki cookies wykorzystywane w tym celu obejmują:</p>
-		<ul>
-			<li>pliki cookies z danymi wprowadzanymi przez Ciebie (identyfikator sesji) na czas trwania sesji (ang. user input cookies);</li>
-			<li>pliki cookies służące do zapewnienia bezpieczeństwa, np. wykorzystywane do wykrywania nadużyć w zakresie uwierzytelniania (ang. user centric security cookies);</li>
-			<li>trwałe pliki cookies służące do personalizacji interfejsu Użytkownika na czas trwania sesji lub nieco dłużej.</li>
-		</ul>
+		<p>Pliki cookies to małe pliki tekstowe instalowane na Twoim urządzeniu, gdy przeglądasz Serwis. Cookies zbierają informacje ułatwiające korzystanie ze strony internetowej – np. poprzez zapamiętywanie Twoich odwiedzin w Serwisie i dokonywanych przez Ciebie czynności. Sam Serwis nie zapisuje plików cookies. Mogą je zapisywać usługi zewnętrzne opisane poniżej.</p>
 		<h3>Usługi zewnętrzne na stronie</h3>
 		<p>Zgodę na pliki cookies zbieramy przez baner usługi easy.tools. Opisy produktów na podstronach oferty są wyświetlane przez skrypt firmy nulead, wczytywany z serwera api.nulead.pl. Wczytanie tych elementów oznacza, że Twoja przeglądarka łączy się z serwerami tych usług i przekazuje im swój adres IP.</p>
+		<p>Skrypt nulead przesyła dodatkowo na serwer api.nulead.pl adres odwiedzanej podstrony, informacje o przeglądarce oraz adres strony, z której do nas trafiłeś. Wyświetlenia i kliknięcia opisów produktów są zliczane przez serwer wisniowski.contented.pl na potrzeby statystyk producenta – firmy Wiśniowski, której jesteśmy Salonem Partnerskim. Skrypt nulead może też zapisać w Twojej przeglądarce plik cookie NL_LayerView, służący do zliczania wyświetleń.</p>
+		<p>Baner easy.tools zapamiętuje Twój wybór dotyczący plików cookies w pamięci przeglądarki (localStorage), aby nie pytać Cię o zgodę przy każdej wizycie. Swój wybór możesz zmienić, usuwając dane tej strony w ustawieniach przeglądarki – baner pojawi się wtedy ponownie.</p>
 		<h3>Zarządzanie cookies</h3>
-		<p>Jeśli nie chcesz otrzymywać plików cookies, możesz zmienić ustawienia przeglądarki. Zastrzegamy, że wyłączenie obsługi plików cookies niezbędnych dla bezpieczeństwa i utrzymania preferencji użytkownika może utrudnić korzystanie z Serwisu.</p>
+		<p>Jeśli nie chcesz otrzymywać plików cookies, możesz zmienić ustawienia przeglądarki.</p>
 
 		<h2>Okres przetwarzania danych osobowych</h2>
 		<p>Okres, przez jaki przetwarzamy Twoje dane, zależy od rodzaju świadczonej usługi i celu przetwarzania. Co do zasady dane przetwarzane są przez czas świadczenia usługi, do czasu wycofania przez Ciebie wyrażonej zgody lub zgłoszenia skutecznego sprzeciwu względem przetwarzania danych (w przypadkach, gdy podstawą prawną przetwarzania danych jest nasz uzasadniony interes).</p>
@@ -87,15 +93,16 @@ const administrator = `Wemont Sp. z o.o., ${firma.adres.ulica.replace('ul. ', ''
 			<dt>prawo do przenoszenia danych</dt>
 			<dd>na tej podstawie – w zakresie, w jakim Twoje dane są przetwarzane w związku z zawartą umową lub wyrażoną zgodą – wydamy Ci dostarczone przez Ciebie dane w formacie pozwalającym na ich odczyt przez komputer. Możesz także zażądać, abyśmy przesłali te dane innemu podmiotowi – jednak pod warunkiem, że mamy do tego odpowiednie możliwości techniczne;</dd>
 			<dt>prawo sprzeciwu</dt>
-			<dd>możesz w każdym momencie sprzeciwić się przetwarzaniu danych osobowych, które odbywa się na podstawie naszego uzasadnionego interesu (np. dla celów analitycznych lub statystycznych albo ze względów związanych z ochroną mienia); sprzeciw w tym zakresie powinien zawierać uzasadnienie;</dd>
+			<dd>możesz w każdym momencie sprzeciwić się przetwarzaniu danych osobowych, które odbywa się na podstawie naszego uzasadnionego interesu (np. zapisywanie danych w dziennikach serwera); sprzeciw w tym zakresie powinien zawierać uzasadnienie;</dd>
 			<dt>prawo wycofania zgody</dt>
 			<dd>jeśli dane przetwarzane są na podstawie Twojej zgody, masz prawo ją wycofać w dowolnym momencie, co jednak nie wpływa na zgodność z prawem przetwarzania dokonanego przed wycofaniem zgody;</dd>
 			<dt>prawo do skargi</dt>
-			<dd>jeżeli uznasz, że sposób, w jaki przetwarzamy Twoje dane osobowe, narusza przepisy RODO lub inne przepisy dotyczące ochrony danych osobowych, możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych.</dd>
+			<dd>jeżeli uznasz, że sposób, w jaki przetwarzamy Twoje dane osobowe, narusza przepisy RODO lub inne przepisy dotyczące ochrony danych osobowych, możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych. (ul. Stawki 2, 00-193 Warszawa).</dd>
 		</dl>
 
 		<h2>Odbiorcy danych</h2>
 		<p>Twoje dane osobowe ujawniamy wyłącznie zaufanym partnerom, w szczególności dostawcom odpowiedzialnym za obsługę systemów informatycznych (w tym hostingu) oraz podmiotom świadczącym usługi księgowe. Twoje dane osobowe będą udostępnione innym podmiotom do ich własnych celów tylko jeżeli wyrazisz na to zgodę.</p>
+		<p>Odbiorcami danych związanych z korzystaniem z Serwisu są w szczególności: firma hostingowa seohost.pl (dzienniki serwera), dostawca banera cookies easy.tools, dostawca skryptu opisów produktów nulead (api.nulead.pl) oraz serwer statystyk producenta wisniowski.contented.pl (podstrony oferty).</p>
 
 		<h2>Przekazywanie danych poza EOG</h2>
 		<p>Poziom ochrony danych osobowych poza Europejskim Obszarem Gospodarczym (EOG) może różnić się od tego zapewnianego przez prawo europejskie. Z tego powodu będziemy przekazywali Twoje dane osobowe poza EOG tylko wtedy, gdy jest to konieczne i z zapewnieniem odpowiedniego stopnia ochrony. Za każdym razem zostaniesz o tym powiadomiony.</p>
@@ -103,12 +110,18 @@ const administrator = `Wemont Sp. z o.o., ${firma.adres.ulica.replace('ul. ', ''
 		<h2>Bezpieczeństwo danych osobowych</h2>
 		<p>Wiedz, że podejmujemy wszelkie kroki w celu zapewnienia, że Twoje dane osobowe będą przetwarzane przez nas w sposób bezpieczny – zapewniający przede wszystkim, że dostęp do Twoich danych mają jedynie osoby upoważnione i jedynie w zakresie, w jakim jest to niezbędne ze względu na wykonywane przez nie zadania. Podejmujemy wszelkie niezbędne działania, by nasi podwykonawcy i inne podmioty współpracujące dawały gwarancję stosowania odpowiednich środków bezpieczeństwa w każdym przypadku, gdy przetwarzają Twoje dane osobowe na nasze zlecenie.</p>
 
+		<h2>Zautomatyzowane podejmowanie decyzji</h2>
+		<p>Nie podejmujemy wobec Ciebie decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu danych, w tym profilowaniu.</p>
+
 		<h2>Dane kontaktowe</h2>
 		<p>We wszelkich sprawach, o których mowa w niniejszej polityce, w szczególności związanych z przetwarzaniem Twoich danych osobowych, możesz się z nami skontaktować:</p>
 		<ul>
 			<li>e-mailem: <a href={`mailto:${firma.emailBiuro}`}>{firma.emailBiuro}</a>;</li>
 			<li>listownie na adres: {administrator}.</li>
 		</ul>
+
+		<h2>Zmiany polityki</h2>
+		<p>Aktualna wersja Polityki jest zawsze dostępna na tej stronie. Datę ostatniej zmiany podajemy na górze strony.</p>
 	</article>
 </BaseLayout>
 

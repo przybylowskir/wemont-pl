@@ -1,15 +1,18 @@
 ---
-// Slider zdjęć: przewijanie z przyciągnięciem (CSS) + strzałki. Bez biblioteki.
+// Slider zdjęć: przewijanie z przyciągnięciem (CSS) + strzałki + autoprzewijanie. Bez biblioteki.
+// Autoprzewijanie jak na Framerze (odczyt 07.11.2026): kolejne zdjęcie co ok. 3 s, w kółko do przodu.
+// Pauza pod kursorem, przy fokusie i na karcie w tle; wyłączone przy „ogranicz ruch” w systemie.
 import { Image } from 'astro:assets';
 
 interface Props {
 	zdjecia: ImageMetadata[];
 	alt: string;
 	etykieta: string;
+	odstep?: number; // ms między zdjęciami
 }
-const { zdjecia, alt, etykieta } = Astro.props;
+const { zdjecia, alt, etykieta, odstep = 3000 } = Astro.props;
 ---
-<div class="slider" data-slider aria-label={etykieta} role="region">
+<div class="slider" data-slider data-odstep={odstep} aria-label={etykieta} role="region">
 	<div class="slajdy" data-slajdy tabindex="0">
 		{zdjecia.map((s, i) => (
 			<Image
@@ -28,18 +31,8 @@ const { zdjecia, alt, etykieta } = Astro.props;
 </div>
 
 <script>
-	for (const s of document.querySelectorAll<HTMLElement>('[data-slider]')) {
-		const tor = s.querySelector<HTMLElement>('[data-slajdy]')!;
-		const krok = (k: number) => tor.scrollBy({ left: k * tor.clientWidth, behavior: 'smooth' });
-		s.querySelector('[data-wstecz]')!.addEventListener('click', () => {
-			if (tor.scrollLeft < 10) tor.scrollTo({ left: tor.scrollWidth, behavior: 'smooth' });
-			else krok(-1);
-		});
-		s.querySelector('[data-dalej]')!.addEventListener('click', () => {
-			if (tor.scrollLeft + tor.clientWidth >= tor.scrollWidth - 10) tor.scrollTo({ left: 0, behavior: 'smooth' });
-			else krok(1);
-		});
-	}
+	import { karuzela } from '../scripts/karuzela';
+	for (const s of document.querySelectorAll<HTMLElement>('[data-slider]')) karuzela(s, Number(s.dataset.odstep));
 </script>
 
 <style>

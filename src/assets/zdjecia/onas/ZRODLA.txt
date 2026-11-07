@@ -1,9 +1,11 @@
-01.jpg <- Wemont_zdjecia/DSC09268.JPG
-02.jpg <- Wemont_zdjecia/DSC09270.JPG
-03.jpg <- Wemont_zdjecia/DSC09259.JPG
-04.jpg <- Wemont_zdjecia/DSC09261.JPG
-05.jpg <- Wemont_zdjecia/DSC09266.JPG
-06.jpg <- Wemont_zdjecia/IMG_5408.jpg
-07.jpg <- Wemont_zdjecia/IMG_5410.jpg
-08.jpg <- Wemont_zdjecia/IMG_5421.jpg
-09.jpg <- Wemont_zdjecia/IMG_5425.jpg
+# Kolejność jak w sliderze O nas na Framerze (odczyt 07.11.2026). Framer pokazuje 8 zdjęć,
+# 03.jpg dwa razy (pozycje 3 i 7) - powtórki nie przenosimy.
+# Usunięte ze slidera (nie było go na Framerze): Wemont_zdjecia/IMG_5408.jpg
+01.jpg <- Wemont_zdjecia/DSC09270.JPG
+02.jpg <- Wemont_zdjecia/DSC09268.JPG
+03.jpg <- Wemont_zdjecia/IMG_5425.jpg
+04.jpg <- Wemont_zdjecia/IMG_5410.jpg
+05.jpg <- Wemont_zdjecia/IMG_5421.jpg
+06.jpg <- Wemont_zdjecia/DSC09266.JPG
+07.jpg <- Wemont_zdjecia/DSC09259.JPG
+08.jpg <- Wemont_zdjecia/DSC09261.JPG

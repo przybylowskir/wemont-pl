@@ -1,0 +1,4 @@
+mirek.jpg, wojtek.jpg, mirek-bez-tla.png <- ~/Aegis_files/wemont-pl/Wemont_zdjecia (Wemont_Mirek_1080, Wemont_Wojtek_1080, Wemont_Mirek_no_bg)
+pasja-mirek.jpg  <- Framer, https://framerusercontent.com/images/XqzjXG03KhKlteaVAiCcuSDgo.jpg (tło karty Mirka - podróże), pobrane 07.11.2026, zmniejszone do 1200 px
+pasja-wojtek.jpg <- Framer, https://framerusercontent.com/images/WOvtg1QnPaoHEYAyTgNnWqGhfI.jpg (tło karty Wojtka - wędkarstwo), pobrane 07.11.2026, zmniejszone do 1200 px
+Pochodzenie i licencja obu zdjęć pasji nieustalone (wyglądają na zdjęcia stockowe dodane we Framerze).

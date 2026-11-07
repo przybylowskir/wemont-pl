@@ -41,8 +41,8 @@ na stronę główną: Google traktuje takie przekierowanie jak miękkie 404.
 `src/data/firma.ts` — stan z obecnej wemont.pl (31.10.2026), Robert:
 dane kontaktowe na wemont.pl są właściwe. Salon: ul. Henryka Sienkiewicza 19,
 78-100 Kołobrzeg; telefony Mirek 608 718 597, Wojtek 660 235 515;
-biuro@ i sprzedaz@; godziny pn-pt 8:00-16:00. Nie kopiuj danych
-z bramykolobrzeg.pl — tam są inne (Jasna 15, 9:00-16:00).
+biuro@ i sprzedaz@; godziny pn-pt 9:00-16:00 (Robert 07.11.2026, za wizytówkami Google; Framer miał 8:00). Nie kopiuj danych
+z bramykolobrzeg.pl — tam jest inny adres (Jasna 15).
 
 **Zamiast mapy Google — obrazek mapy**, jak na bramykolobrzeg.pl
 (OpenStreetMap, skrypt `scripts/mapy/` w wemont-strona). Bez iframe Google.

@@ -1,6 +1,7 @@
 // Dane firmy - jedno źródło dla treści i stopki.
 // Stan z obecnej wemont.pl (Framer, /kontakt i stopka, 31.10.2026). Robert 31.10: „Dane kontaktowe na wemont.pl są właściwe”.
-// Uwaga: bramykolobrzeg.pl ma inne dane (adres Jasna 15, godziny 9-16) - to osobna strona, nie kopiuj stamtąd.
+// Uwaga: bramykolobrzeg.pl ma inne dane (adres Jasna 15) - to osobna strona, nie kopiuj stamtąd.
+// Wyjątek: godziny 9:00-16:00 - od 07.11.2026 te same na obu stronach (Robert, za wizytówkami Google).
 
 export const firma = {
 	nazwa: 'Wemont',
@@ -12,7 +13,7 @@ export const firma = {
 		kraj: 'PL',
 	},
 	godziny: [
-		'Poniedziałek - Piątek: 08:00 - 16:00',
+		'Poniedziałek - Piątek: 09:00 - 16:00', // Robert 07.11.2026: tak podają obie wizytówki Wemont w Google (Framer miał 08:00)
 		'Sobota - umówmy się telefonicznie',
 		'Niedziela - odpoczywamy',
 	],
