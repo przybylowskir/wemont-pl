@@ -43,7 +43,7 @@ else
 	grep -q 'noindex, nofollow' dist/index.html || { echo "BŁĄD: wersja próbna bez noindex" >&2; exit 1; }
 fi
 
-OPCJE=(-rlptz --delete --exclude '*.shtml' --itemize-changes -e ssh)
+OPCJE=(-rlptz --delete --exclude '*.shtml' --exclude '.DS_Store' --itemize-changes -e ssh)
 if [ "$WYSLIJ" = "--wyslij" ]; then
 	rsync "${OPCJE[@]}" dist/ "$CEL"
 	echo "Wgrane: $TRYB, commit $(git rev-parse --short HEAD)."
