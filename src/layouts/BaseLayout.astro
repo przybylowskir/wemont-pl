@@ -11,7 +11,10 @@ interface Props {
 }
 const { title, description } = Astro.props;
 const podglad = import.meta.env.PUBLIC_PODGLAD === '1';
-const kanoniczny = new URL(Astro.url.pathname, Astro.site);
+// Przy build.format 'file' Astro.url.pathname ma końcówkę .html (/oferta.html, /index.html), a serwer
+// przekierowuje ją na adres bez końcówki. Kanoniczny musi być adresem docelowym: /oferta, / (09.11.2026,
+// Search Console: „Page with redirect” i „Google chose different canonical”).
+const kanoniczny = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Astro.site);
 ---
 <!doctype html>
 <html lang="pl">
