@@ -75,3 +75,18 @@ Opinie klientów zostają dosłownie, z literówkami autorów.
 `domains/wemont.pl/public_html/`. Bez `--wyslij` tylko podgląd zmian.
 Wersja test na seohost jest możliwa dopiero po przełączeniu DNS — do tego czasu
 domena wskazuje na Framer, więc test robimy lokalnie i na podglądzie Cloudflare.
+
+## Weryfikacja przed „działa” (Robert, 2026-11-11)
+
+- „Działa”, „jest na produkcji”, „poprawione” wolno napisać dopiero po
+  sprawdzeniu **wyrenderowanej strony** pod docelowym adresem (podgląd albo
+  produkcja): zrzut ekranu albo styl obliczony przez przeglądarkę
+  (`getComputedStyle`) dla elementu, którego dotyczy zmiana. Pasująca reguła
+  w kodzie źródłowym się nie liczy.
+- Po wdrożeniu poczekaj na koniec budowania i przeczytaj log. Nieudany build
+  oznacza, że nie działa.
+- Nie da się sprawdzić (brak przeglądarki, brak dostępu) → napisz wprost
+  „nie sprawdzone” i co Robert ma zobaczyć, żeby to potwierdzić.
+
+Źródło: raport Claude Code Insights z 03.11.2026 — poprawka fontu mapy na
+wemont.pl zgłoszona jako działająca po samym znalezieniu reguły CSS.
